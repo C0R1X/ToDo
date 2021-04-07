@@ -1,1 +1,9 @@
-<p>todos-detailed works!</p>
+<div *ngIf="task">
+    <h2>{{task.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{task.id}}</div>
+    <div>
+      <label for="task-name">task name: </label>
+      <input id="task-name" [(ngModel)]="task.name" placeholder="task name"/>
+    </div>
+    
+  </div>

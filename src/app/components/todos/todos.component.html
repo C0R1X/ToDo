@@ -1,8 +1,13 @@
 <div>
-    <ul *ngFor="let t of tasks">
-        <li>{{t.name}}</li>
-            <p>{{t.desc}}</p>   
-            <br>
-            <p>{{t.time}}</p>
+    <ul class="tasks">
+        <li *ngFor="let task of tasks">
+            <a routerlink="/detail/{{task.id}}">
+                <h4>{{task.name}} {{task.id}}</h4>
+            </a>
+                <p>{{task.desc}}</p>   
+                <br>
+                <p>{{task.time}}</p>
+            
+        </li>
     </ul>
 </div>

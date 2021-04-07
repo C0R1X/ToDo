@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { from } from 'rxjs';
+import { Component, IterableDiffers, OnInit } from '@angular/core';
 
 import { TaskItem } from '../../models/taskItem';
 import { TaskService } from '../../services/task.service';
@@ -10,15 +9,15 @@ import { TaskService } from '../../services/task.service';
   styleUrls: ['./todos.component.css']
 })
 export class TodosComponent implements OnInit {
-  tasks = TaskItem[];
+  tasks: TaskItem[];
 
   constructor(private taskService: TaskService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void{
     this.getTasks();
   }
 
   getTasks():void{
-    this.taskService.getTasks().subscribe(tasks=>this.tasks=tasks);
+    this.taskService.getTasks().subscribe(tasks=>this.tasks=tasks );
   }
 }
