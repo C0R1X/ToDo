@@ -1,12 +1,9 @@
 <div>
     <ul class="tasks">
         <li *ngFor="let task of tasks">
-            <a routerlink="/detail/{{task.id}}">
+            <a routerLink="/detail/{{task.id}}" routerLinkActive="active">
                 <h4>{{task.name}} {{task.id}}</h4>
             </a>
-                <p>{{task.desc}}</p>   
-                <br>
-                <p>{{task.time}}</p>
             
         </li>
     </ul>

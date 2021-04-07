@@ -13,4 +13,7 @@ export class TodosAddingComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  add():void{
+    
+  }
 }

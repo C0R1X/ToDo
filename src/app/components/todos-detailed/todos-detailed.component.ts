@@ -25,12 +25,12 @@ export class TodosDetailedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getTasks();
+    this.getTask();
   }
 
-  getTasks(): void{
+  getTask(): void{
     const id = +this.route.snapshot.paramMap.get('id');
-    this.taskService.getTask(id);
+    this.taskService.getTask(id).subscribe(task=>this.task=task);
   }
 
 }

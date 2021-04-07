@@ -1,16 +1,14 @@
-<div class="app">
+<div height=60% class="app">
   <header>
     <h1>Todo list</h1>
   </header>
-  <mat-tab-group mat-align-tabs="center">
+  <nav mat-tab-nav-bar mat-tab-align="center">
     
-    <mat-tab label="Create Task">
-      <app-todos-adding></app-todos-adding>
-    </mat-tab>
+    <a mat-tab-link routerLink="/add-task" routerLinkActive="active"> Add Task </a>
 
-    <mat-tab label="Task List">
-      <app-todos></app-todos>
-    </mat-tab>
+    <a mat-tab-link routerLink="/tasks" routerLinkActive="active"> Display all tasks </a>
+    
   
-  </mat-tab-group>
+  </nav>
+  <router-outlet></router-outlet>
 </div>
