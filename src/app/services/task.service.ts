@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable,of } from 'rxjs';
 
-import { TaskItem } from '../models/taskItem';
+import { ITaskItem,Task } from '../models/taskItem';
 import { TASKS } from '../mock-tasks'
  
 @Injectable({
@@ -10,15 +10,22 @@ import { TASKS } from '../mock-tasks'
 })
 export class TaskService {
 
+  tasks:Task[];
+  done:boolean = false;     //
+  
   constructor() { }
 
-  getTasks(): Observable<TaskItem[]>{
+  getTasks(): Observable<Task[]>{
     const tasks = of(TASKS);
     return tasks;
   }
  
-  getTask(id:number): Observable<TaskItem>{
-    const task = TASKS.find(t=>t.id===id) as TaskItem;
+  getTask(id:number): Observable<Task>{
+    const task = TASKS.find(t=>t.id===id) as ITaskItem;
     return of(task);
+  }
+
+  addTask(id:number,name:string,desc:string,time:string){
+    this.tasks.push(new Task(id,name,desc,time));
   }
 }

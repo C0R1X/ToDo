@@ -1,6 +1,7 @@
-import { Component, IterableDiffers, OnInit } from '@angular/core';
+import { Component, Input, IterableDiffers, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { TaskItem } from '../../models/taskItem';
+import { ITaskItem,Task } from '../../models/taskItem';
 import { TaskService } from '../../services/task.service';
 
 @Component({
@@ -9,15 +10,15 @@ import { TaskService } from '../../services/task.service';
   styleUrls: ['./todos.component.css']
 })
 export class TodosComponent implements OnInit {
-  tasks: TaskItem[];
+  
+  tasks:Task[];
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService) { 
+  }
 
   ngOnInit(): void{
-    this.getTasks();
+    this.taskService.getTasks().subscribe(tasks=>this.tasks=tasks);
   }
 
-  getTasks():void{
-    this.taskService.getTasks().subscribe(tasks=>this.tasks=tasks );
-  }
+  
 }

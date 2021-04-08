@@ -4,7 +4,7 @@ import { from } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'
 
-import { TaskItem } from '../../models/taskItem';
+import { ITaskItem } from '../../models/taskItem';
 import { TaskService } from '../../services/task.service';
 import { ThrowStmt } from '@angular/compiler';
  
@@ -14,7 +14,7 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ['./todos-detailed.component.css']
 })
 export class TodosDetailedComponent implements OnInit {
-  task: TaskItem
+  task: ITaskItem
 
 
   constructor(
