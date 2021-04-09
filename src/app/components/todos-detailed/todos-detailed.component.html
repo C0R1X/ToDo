@@ -1,1 +1,7 @@
-<p>todos-detailed works!</p>
+<div *ngIf="task">
+  <h4>{{task.name}}</h4>
+
+    <p>{{task.desc}}</p>   
+    <br>
+    <p>{{task.time}}</p>    
+</div>
