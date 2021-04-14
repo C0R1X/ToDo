@@ -1,8 +1,11 @@
-import { Component, NgModule, OnInit } from '@angular/core';
-import { MatTabsModule } from '@angular/material/tabs';
-import { Task  } from "../../models/taskItem";
-import { TodosComponent } from "../todos/todos.component";
+import { Component, OnInit } from '@angular/core';
+
 import { TaskService } from "../../services/task.service";
+import { FormBuilder,Validators, FormGroup } from '@angular/forms';
+import { Task } from 'src/app/models/taskItem';
+
+
+
 
 
 @Component({
@@ -12,18 +15,36 @@ import { TaskService } from "../../services/task.service";
 })
 export class TodosAddingComponent implements OnInit {
   
-  name="";
-  desc="";
-  time="";
+  temp:string[];
 
-  constructor(private TaskService: TaskService) { }
- 
+  myForm:FormGroup;
+  constructor(private TaskService: TaskService,private FormBuilder:FormBuilder) { 
+    
+    this.myForm=FormBuilder.group
+      ({
+        "taskName":["", [Validators.required]],
+        "taskDesc":["", [Validators.required]],
+        "taskTime":["",[Validators.required]]
+      });
+  }
   ngOnInit(): void {
     
   }
 
-  addTask(name:string,desc:string,time:string):void{
-    this.TaskService.addTask(0,name,desc,time);
+  onSubmit(){
+    
+    // this.TaskService.addTask(
+    //   new Task(
+    //     0,
+    //     this.myForm.controls.taskName.value,
+    //     this.myForm.controls.taskDesc.value,            // error: how to send myForm.values to Task constructor?
+    //     this.myForm.controls.taskTime.value
+    //   )
+    // );  
+
+    console.log(this.myForm.value);
   }
+
+  
 
 }

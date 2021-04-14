@@ -1,31 +1,35 @@
 import { Injectable } from '@angular/core';
 
-import { Observable,of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
-import { ITaskItem,Task } from '../models/taskItem';
+import { Task } from '../models/taskItem';
 import { TASKS } from '../mock-tasks'
+import { map } from 'rxjs/operators';
+
  
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  tasks:Task[];
+  private tasks$:BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>(TASKS);
   done:boolean = false;     //
   
-  constructor() { }
+  constructor() { 
+  }
 
-  getTasks(): Observable<Task[]>{
-    const tasks = of(TASKS);
-    return tasks;
+  getTasks(){
+    return this.tasks$;
   }
  
-  getTask(id:number): Observable<Task>{
-    const task = TASKS.find(t=>t.id===id) as ITaskItem;
-    return of(task);
+  getTask(id:number | string){
+    return this.getTasks().pipe(
+      map(tasks=>tasks.find(task=>task.id===+id))
+    );
   }
 
   addTask(id:number,name:string,desc:string,time:string){
-    this.tasks.push(new Task(id,name,desc,time));
+    TASKS.push(new Task(id,name,desc,time));
+    this.tasks$.next(TASKS);
   }
 }

@@ -1,7 +1,8 @@
 import { Component, Input, IterableDiffers, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-
-import { ITaskItem,Task } from '../../models/taskItem';
+import { switchMap } from 'rxjs/operators'
+import { Task } from '../../models/taskItem';
 import { TaskService } from '../../services/task.service';
 
 @Component({
@@ -11,13 +12,22 @@ import { TaskService } from '../../services/task.service';
 })
 export class TodosComponent implements OnInit {
   
-  tasks:Task[];
+  tasks$:Observable<Task[]>;
+  selectedId:number;
 
-  constructor(private taskService: TaskService) { 
+  constructor(
+    private taskService: TaskService,
+    private route: ActivatedRoute
+    ) { 
   }
 
   ngOnInit(): void{
-    this.taskService.getTasks().subscribe(tasks=>this.tasks=tasks);
+    this.tasks$=this.route.paramMap.pipe(
+      switchMap(params=>{
+        this.selectedId= +params.get('id');
+        return this.taskService.getTasks();
+      })
+    );
   }
 
   

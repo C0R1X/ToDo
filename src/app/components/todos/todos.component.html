@@ -1,10 +1,9 @@
-<div>
-    <ul class="tasks">
-        <li *ngFor="let task of tasks">
-            <a routerLink="/detail/{{task.id}}" routerLinkActive="active">
-                <h4>{{task.name}} {{task.id}}</h4>
-            </a>
+
+<ul class="tasks">
+    <li *ngFor="let task of tasks$ | async">
+        <a routerLink="/detail/{{task.id}}" routerLinkActive="active">
+            <h4>{{task.name}} {{task.id}}</h4>
+        </a>
             
-        </li>
-    </ul>
-</div>
+    </li>
+</ul>
