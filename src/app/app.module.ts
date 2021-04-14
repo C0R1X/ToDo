@@ -7,7 +7,7 @@ import { TodosComponent } from './components/todos/todos.component';
 import { TodosAddingComponent } from './components/todos-adding/todos-adding.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
-import { FormsModule }   from '@angular/forms';
+import { ReactiveFormsModule }   from '@angular/forms';
 import { TodosDetailedComponent } from './components/todos-detailed/todos-detailed.component';
 
 @NgModule({
@@ -22,7 +22,7 @@ import { TodosDetailedComponent } from './components/todos-detailed/todos-detail
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTabsModule,
-    FormsModule
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

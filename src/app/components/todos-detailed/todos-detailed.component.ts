@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { from } from 'rxjs';
-
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common'
-
-import { ITaskItem } from '../../models/taskItem';
+import { Router,ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Task } from '../../models/taskItem';
 import { TaskService } from '../../services/task.service';
-import { ThrowStmt } from '@angular/compiler';
+
  
 @Component({
   selector: 'app-todos-detailed',
@@ -14,23 +12,28 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ['./todos-detailed.component.css']
 })
 export class TodosDetailedComponent implements OnInit {
-  task: ITaskItem
+  task$: Observable<Task>;
+  selectedId: number;
 
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private taskService: TaskService,
-    private location: Location
-
   ) { }
 
   ngOnInit(): void {
-    this.getTask();
+    this.task$ = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+        this.taskService.getTask(params.get('id')))
+    );
   }
 
-  getTask(): void{
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.taskService.getTask(id).subscribe(task=>this.task=task);
+  gotoTask(task:Task){
+    const taskId = task ? task.id:null;
+    this.router.navigate(['/detailed/',{id:taskId}]);
   }
+
+  
 
 }

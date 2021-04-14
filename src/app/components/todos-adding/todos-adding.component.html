@@ -1,21 +1,39 @@
-<div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control"
-           required
-           [(ngModel)]="name" name="name">
-</div>
-<div class="form-group">
-    <label for="name">Description</label>
-    <input type="text" class="form-control"
-           required
-           [(ngModel)]="desc" name="desc">
-</div>
-<div class="form-group">
-    <label for="name">Expire Date</label>
-    <input type="text" class="form-control" 
-        required
-        [(ngModel)]="time" name="expDate">
-</div>
-<button class="btn btn-default" (click)="addTask(name,desc,time)">
-    Добавить
-</button>
+<form [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label>Task name</label>
+        <br>
+        <input class="form-control" type="text" name="name" formControlName="taskName">
+        <div class="alert alert-danger"
+            *ngIf="myForm.controls['taskName'].invalid && myForm.controls['taskName'].touched">
+            Не указано имя задания
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <br>
+        <input class="form-control" type="text" name="name" formControlName="taskDesc">
+        <div class="alert alert-danger"
+            *ngIf="myForm.controls['taskDesc'].invalid && myForm.controls['taskDesc'].touched">
+            Не указано подробное описание
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Time for execution</label>
+        <br>
+        <input class="form-control" type="text" name="name" formControlName="taskTime">
+        <div class="alert alert-danger"
+            *ngIf="myForm.controls['taskTime'].invalid && myForm.controls['taskTime'].touched">
+            Не указано время выполнения
+        </div>
+    </div>
+    <br><br>
+    <p>
+        Form value: {{ myForm.value | json }}
+    </p>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-default" [disabled]="myForm.invalid" >
+            Создать
+        </button>
+    </div>
+</form>
