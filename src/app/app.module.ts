@@ -7,8 +7,10 @@ import { TodosComponent } from './components/todos/todos.component';
 import { TodosAddingComponent } from './components/todos-adding/todos-adding.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
-import { ReactiveFormsModule }   from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { TodosDetailedComponent } from './components/todos-detailed/todos-detailed.component';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { TodosDetailedComponent } from './components/todos-detailed/todos-detail
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTabsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    Ng2SearchPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

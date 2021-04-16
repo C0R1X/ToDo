@@ -1,6 +1,37 @@
+<div class="container">
+  <div class="search-task">
+    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;
+    Start searching for a task by id or name or description">
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let task of tasks$ | filter:searchText | async">
+
+    <td>{{task.id}}</td>
+      <a routerLink="/detail/{{task.id}}" routerLinkActive="active">
+        <td>{{task.name}}</td>
+      </a>
+    <td><button (click)="this.taskService.deleteTask(this.task)"> Х </button></td>
+    <td><button (click)="this.taskService.makeTaskImportant(this.task)"> 0 </button></td>
+
+  </tr>
+  </tbody>
+</table>
+
+<br>
+<br>
 
 <ul class="tasks">
-    <li *ngFor="let task of tasks$ | async">
+    <li *ngFor="let task of tasks$ | filter:searchText | async ">
       <span id="imp_status" *ngIf="task.important"> !!! </span>
       <a routerLink="/detail/{{task.id}}" routerLinkActive="active">
             <h4>{{task.name}} {{task.id}}</h4>

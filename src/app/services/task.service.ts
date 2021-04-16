@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import {BehaviorSubject, of} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 
 import { Task } from '../models/taskItem';
 import { TASKS } from '../mock-tasks'
-import {findIndex, map} from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 
 
 @Injectable({
@@ -20,7 +20,7 @@ export class TaskService {
   }
 
   getTasks(){
-    return this.tasks$;
+    return this.tasks$
   }
 
   getTask(id:number | string){
@@ -46,6 +46,9 @@ export class TaskService {
     this.tasks$.getValue().splice(this.tasks$.getValue().indexOf(task),1,t)
   }
 
+  getTasksByString(str:string){
+    return this.tasks$.getValue().filter(t=>t.name===str);
+  }
 
 
 }

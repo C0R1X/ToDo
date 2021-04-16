@@ -1,9 +1,11 @@
-import { Component, Input, IterableDiffers, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators'
 import { Task } from '../../models/taskItem';
 import { TaskService } from '../../services/task.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {TASKS} from '../../mock-tasks';
 
 @Component({
   selector: 'app-todos',
@@ -11,14 +13,16 @@ import { TaskService } from '../../services/task.service';
   styleUrls: ['./todos.component.css']
 })
 export class TodosComponent implements OnInit {
-  
+
   tasks$:Observable<Task[]>;
   selectedId:number;
+  searchText: string;
+
 
   constructor(
     private taskService: TaskService,
     private route: ActivatedRoute
-    ) { 
+    ) {
   }
 
   ngOnInit(): void{
@@ -30,5 +34,5 @@ export class TodosComponent implements OnInit {
     );
   }
 
-  
+
 }
