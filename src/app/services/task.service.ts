@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, of} from 'rxjs';
 
 import { Task } from '../models/taskItem';
 import { TASKS } from '../mock-tasks'
-import { map } from 'rxjs/operators';
+import {findIndex, map} from 'rxjs/operators';
 
 
 @Injectable({
@@ -36,10 +36,14 @@ export class TaskService {
   }
 
   deleteTask(task:Task){
-    this.tasks$.getValue().splice(task.id,1);
+    console.log(task);
+    this.tasks$.getValue().splice(this.tasks$.getValue().indexOf(task),1);
   }
+
   makeTaskImportant(task:Task){
-    return (this.getTask(task.id)).toPromise
+    let t= task;
+    t.important=true;
+    this.tasks$.getValue().splice(this.tasks$.getValue().indexOf(task),1,t)
   }
 
 

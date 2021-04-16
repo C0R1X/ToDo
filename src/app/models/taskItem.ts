@@ -15,6 +15,7 @@ export class Task implements ITaskItem{
     desc: string
     time: string
     important: boolean
+    dateCreate: Date
 
     constructor(id:number,name:string,desc:string,time:string){
         this.id=id;
@@ -22,5 +23,7 @@ export class Task implements ITaskItem{
         this.desc=desc;
         this.time=time;
         this.important=false;
+        this.dateCreate=new Date();
     }
+
 }

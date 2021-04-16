@@ -5,7 +5,7 @@ import { switchMap } from 'rxjs/operators';
 import { Task } from '../../models/taskItem';
 import { TaskService } from '../../services/task.service';
 
- 
+
 @Component({
   selector: 'app-todos-detailed',
   templateUrl: './todos-detailed.component.html',
@@ -29,11 +29,6 @@ export class TodosDetailedComponent implements OnInit {
     );
   }
 
-  gotoTask(task:Task){
-    const taskId = task ? task.id:null;
-    this.router.navigate(['/detailed/',{id:taskId}]);
-  }
 
-  
 
 }
