@@ -14,12 +14,12 @@ import { Task } from 'src/app/models/taskItem';
   styleUrls: ['./todos-adding.component.css']
 })
 export class TodosAddingComponent implements OnInit {
-  
+
   temp:string[];
 
   myForm:FormGroup;
-  constructor(private TaskService: TaskService,private FormBuilder:FormBuilder) { 
-    
+  constructor(private TaskService: TaskService,private FormBuilder:FormBuilder) {
+
     this.myForm=FormBuilder.group
       ({
         "taskName":["", [Validators.required]],
@@ -28,23 +28,21 @@ export class TodosAddingComponent implements OnInit {
       });
   }
   ngOnInit(): void {
-    
+
   }
 
   onSubmit(){
-    
-    // this.TaskService.addTask(
-    //   new Task(
-    //     0,
-    //     this.myForm.controls.taskName.value,
-    //     this.myForm.controls.taskDesc.value,            // error: how to send myForm.values to Task constructor?
-    //     this.myForm.controls.taskTime.value
-    //   )
-    // );  
+    let t = new Task(-1,"","","")
+    this.TaskService.addTask(
+      t.id=0,
+      t.id=this.myForm.controls.taskName.value,
+      t.desc=this.myForm.controls.taskDesc.value,
+      t.time=this.myForm.controls.taskTime.value
 
+    );
     console.log(this.myForm.value);
   }
 
-  
+
 
 }
