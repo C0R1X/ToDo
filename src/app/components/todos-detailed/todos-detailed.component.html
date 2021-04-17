@@ -1,7 +1,10 @@
 <div *ngIf="task$ | async as task">
-  <h4>{{task.name}}</h4>
-
-    <p>{{task.desc}}</p>   
+  <h4>Task name:
+    {{task.name}} </h4>
+  <div id="imp_status" *ngIf="task.important===true">$$$</div>
+  <p>Important</p>
+    <p>{{task.desc}}</p>
     <br>
-    <p>{{task.time}}</p>    
+    <p>{{task.time}}</p>
+    <p>Created: {{task.dateCreate}}</p>
 </div>

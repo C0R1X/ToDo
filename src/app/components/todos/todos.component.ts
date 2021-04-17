@@ -1,9 +1,10 @@
-import { Component, Input, IterableDiffers, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators'
 import { Task } from '../../models/taskItem';
 import { TaskService } from '../../services/task.service';
+import { SearchComponent} from '../search/search.component';
 
 @Component({
   selector: 'app-todos',
@@ -11,14 +12,17 @@ import { TaskService } from '../../services/task.service';
   styleUrls: ['./todos.component.css']
 })
 export class TodosComponent implements OnInit {
-  
+
   tasks$:Observable<Task[]>;
   selectedId:number;
 
+
+
   constructor(
     private taskService: TaskService,
+    private searchComponent: SearchComponent,
     private route: ActivatedRoute
-    ) { 
+    ) {
   }
 
   ngOnInit(): void{
@@ -30,5 +34,6 @@ export class TodosComponent implements OnInit {
     );
   }
 
-  
+
+
 }

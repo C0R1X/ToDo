@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="search-task">
+    <input type="text" (change)="OnChange()" [(ngModel)]="searchText"  name="search" autocomplete="off" placeholder="&#61442;
+    Start searching for a task by id or name or description">
+  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Select an option</mat-label>
+    <mat-select [(ngModel)]="searchOption">
+      <mat-option value="id">id</mat-option>
+      <mat-option value="name">name</mat-option>
+      <mat-option value="desc">description</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
