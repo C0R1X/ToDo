@@ -4,8 +4,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators'
 import { Task } from '../../models/taskItem';
 import { TaskService } from '../../services/task.service';
-import {MatTableDataSource} from '@angular/material/table';
-import {TASKS} from '../../mock-tasks';
+import { SearchComponent} from '../search/search.component';
 
 @Component({
   selector: 'app-todos',
@@ -16,11 +15,12 @@ export class TodosComponent implements OnInit {
 
   tasks$:Observable<Task[]>;
   selectedId:number;
-  searchText: string;
+
 
 
   constructor(
     private taskService: TaskService,
+    private searchComponent: SearchComponent,
     private route: ActivatedRoute
     ) {
   }
@@ -33,6 +33,7 @@ export class TodosComponent implements OnInit {
       })
     );
   }
+
 
 
 }

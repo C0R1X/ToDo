@@ -1,9 +1,5 @@
-<div class="container">
-  <div class="search-task">
-    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;
-    Start searching for a task by id or name or description">
-  </div>
-</div>
+
+<app-search></app-search>
 
 <table class="table table-striped">
   <thead>
@@ -14,7 +10,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let task of tasks$ | filter:searchText | async">
+  <tr *ngFor="let task of tasks$ | async">
 
     <td>{{task.id}}</td>
       <a routerLink="/detail/{{task.id}}" routerLinkActive="active">
@@ -31,7 +27,7 @@
 <br>
 
 <ul class="tasks">
-    <li *ngFor="let task of tasks$ | filter:searchText | async ">
+    <li *ngFor="let task of tasks$ | async ">
       <span id="imp_status" *ngIf="task.important"> !!! </span>
       <a routerLink="/detail/{{task.id}}" routerLinkActive="active">
             <h4>{{task.name}} {{task.id}}</h4>

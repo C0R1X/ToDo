@@ -5,6 +5,7 @@ import { from } from 'rxjs';
 import {TodosAddingComponent} from './components/todos-adding/todos-adding.component';
 import {TodosComponent} from './components/todos/todos.component';
 import {TodosDetailedComponent} from './components/todos-detailed/todos-detailed.component';
+import {SearchComponent} from './components/search/search.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/tasks', pathMatch: 'full' },

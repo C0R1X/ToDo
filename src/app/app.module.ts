@@ -10,6 +10,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { TodosDetailedComponent } from './components/todos-detailed/todos-detailed.component';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import { SearchComponent } from './components/search/search.component';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -17,18 +19,20 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
     AppComponent,
     TodosComponent,
     TodosAddingComponent,
-    TodosDetailedComponent
+    TodosDetailedComponent,
+    SearchComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatTabsModule,
-    ReactiveFormsModule,
-    FormsModule,
-    Ng2SearchPipeModule
-  ],
-  providers: [],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatTabsModule,
+        ReactiveFormsModule,
+        FormsModule,
+        Ng2SearchPipeModule,
+        MatSelectModule
+    ],
+  providers: [SearchComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

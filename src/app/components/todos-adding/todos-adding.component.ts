@@ -15,8 +15,6 @@ import { Task } from 'src/app/models/taskItem';
 })
 export class TodosAddingComponent implements OnInit {
 
-  temp:string[];
-
   myForm:FormGroup;
   constructor(private TaskService: TaskService,private FormBuilder:FormBuilder) {
 

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import {BehaviorSubject, Observable, of} from 'rxjs';
-
+import { BehaviorSubject, Observable, of} from 'rxjs';
 import { Task } from '../models/taskItem';
 import { TASKS } from '../mock-tasks'
-import { map} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
+
+
 
 
 @Injectable({
@@ -14,6 +15,7 @@ export class TaskService {
 
   // @ts-ignore
   private tasks$:BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>(TASKS);
+
   done:boolean = false;     //
 
   constructor() {
@@ -21,6 +23,9 @@ export class TaskService {
 
   getTasks(){
     return this.tasks$
+    //   .pipe(
+    //   map(tasks=>tasks.filter(task=>task.name.toLowerCase().includes(SearchComponent.arguments.searchText)))
+    // );
   }
 
   getTask(id:number | string){
@@ -31,6 +36,7 @@ export class TaskService {
 
   addTask(id:number,name:string,desc:string,time:string){
     TASKS.push(new Task(id,name,desc,time));
+
     // @ts-ignore
     this.tasks$.next(TASKS);
   }
@@ -47,7 +53,10 @@ export class TaskService {
   }
 
   getTasksByString(str:string){
-    return this.tasks$.getValue().filter(t=>t.name===str);
+    return this.tasks$
+      .pipe(
+      map(tasks=>tasks.filter(task=>task.name.toLowerCase().includes(str.toLowerCase())))
+    );
   }
 
 
