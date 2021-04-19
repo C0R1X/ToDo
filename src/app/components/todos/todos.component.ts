@@ -1,41 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators'
-import { Task } from '../../models/taskItem';
-import { TaskService } from '../../services/task.service';
-import { SearchComponent} from '../search/search.component';
-
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {Task} from '../../models/taskItem';
+import {TaskService} from '../../services/task.service';
 
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.css']
 })
-export class TodosComponent implements OnInit {
-
-  tasks$:Observable<Task[]>;
-  selectedId:number;
-
-
+export class TodosComponent {
+  tasks$: Observable<Task[]> = this.taskService.getTasks();
 
   constructor(
     private taskService: TaskService,
     private route: ActivatedRoute
-    ) {
-
+  ) {
   }
-
-  ngOnInit(): void{
-    this.tasks$=this.route.paramMap.pipe(
-      switchMap(params=>{
-        this.selectedId= +params.get('id');
-        return this.taskService.getTasks();
-      })
-    );
-  }
-
-
-
-
 }

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router,ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { Task } from '../../models/taskItem';
-import { TaskService } from '../../services/task.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
+import {Task} from '../../models/taskItem';
+import {TaskService} from '../../services/task.service';
 
 
 @Component({
@@ -13,14 +13,13 @@ import { TaskService } from '../../services/task.service';
 })
 export class TodosDetailedComponent implements OnInit {
   task$: Observable<Task>;
-  selectedId: number;
-
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private taskService: TaskService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.task$ = this.route.paramMap.pipe(
@@ -28,7 +27,4 @@ export class TodosDetailedComponent implements OnInit {
         this.taskService.getTask(params.get('id')))
     );
   }
-
-
-
 }

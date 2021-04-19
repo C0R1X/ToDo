@@ -2,7 +2,7 @@ S<form [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label>Task name</label>
         <br>
-        <input class="form-control" type="text" name="name" formControlName="taskName">
+        <input class="form-control" type="text" formControlName="taskName">
         <div class="alert alert-danger"
             *ngIf="myForm.controls['taskName'].invalid && myForm.controls['taskName'].touched">
             Не указано имя задания
@@ -11,7 +11,7 @@ S<form [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label>Description</label>
         <br>
-        <input class="form-control" type="text" name="name" formControlName="taskDesc">
+        <input class="form-control" type="text" formControlName="taskDesc">
         <div class="alert alert-danger"
             *ngIf="myForm.controls['taskDesc'].invalid && myForm.controls['taskDesc'].touched">
             Не указано подробное описание
