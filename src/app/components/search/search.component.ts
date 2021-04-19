@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
 
   OnChange(){
     this.taskService.getTasksByString(this.searchText);
-    console.log("OK", this.searchText)
+    console.log("OK sA", this.searchText)
   }
 
 }
