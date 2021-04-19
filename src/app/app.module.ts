@@ -12,6 +12,7 @@ import { TodosDetailedComponent } from './components/todos-detailed/todos-detail
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import { SearchComponent } from './components/search/search.component';
 import {MatSelectModule} from '@angular/material/select';
+import {SearchPipe} from './services/search.pipe';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {MatSelectModule} from '@angular/material/select';
     TodosComponent,
     TodosAddingComponent,
     TodosDetailedComponent,
-    SearchComponent
+    SearchComponent,
+    SearchPipe
   ],
     imports: [
         BrowserModule,

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable, of, pipe} from 'rxjs';
 import { Task } from '../models/taskItem';
 import { TASKS } from '../mock-tasks'
 import {filter, map} from 'rxjs/operators';
-
-
+import {SearchPipe} from './search.pipe';
 
 
 @Injectable({
@@ -58,6 +57,7 @@ export class TaskService {
       map(tasks=>tasks.filter(task=>task.name.toLowerCase().includes(str.toLowerCase())))
     );
   }
+
 
 
 }
