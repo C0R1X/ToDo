@@ -1,5 +1,7 @@
 import {Component, OnInit, OnChanges, SimpleChanges, Input} from '@angular/core';
 import {TaskService} from '../../services/task.service';
+import {TodosComponent} from '../todos/todos.component';
+
 
 
 
@@ -21,9 +23,14 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  OnChange(){
-    this.taskService.getTasksByString(this.searchText);
-    console.log("OK", this.searchText)
-  }
+  OnChange() {
+    if(!this.searchText){
+      TodosComponent.arguments.tasks$.next(this.taskService.getTasks());
+    }
+    else {
+      console.log(this.searchText)
+      TodosComponent.arguments.tasks$.next(this.taskService.getTasksByString(this.searchText));
+    }
 
+  }
 }

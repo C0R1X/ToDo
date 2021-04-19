@@ -6,6 +6,7 @@ import { Task } from '../../models/taskItem';
 import { TaskService } from '../../services/task.service';
 import { SearchComponent} from '../search/search.component';
 
+
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
@@ -20,9 +21,9 @@ export class TodosComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
-    private searchComponent: SearchComponent,
     private route: ActivatedRoute
     ) {
+
   }
 
   ngOnInit(): void{
@@ -33,6 +34,7 @@ export class TodosComponent implements OnInit {
       })
     );
   }
+
 
 
 

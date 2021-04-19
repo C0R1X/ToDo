@@ -1,27 +1,25 @@
 
 <app-search></app-search>
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th>Id</th>
-    <th>Name</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let task of tasks$ | async">
-
-    <td>{{task.id}}</td>
-      <a routerLink="/detail/{{task.id}}" routerLinkActive="active">
-        <td>{{task.name}}</td>
-      </a>
-    <td><button (click)="this.taskService.deleteTask(this.task)"> Х </button></td>
-    <td><button (click)="this.taskService.makeTaskImportant(this.task)"> 0 </button></td>
-
-  </tr>
-  </tbody>
-</table>
+<!--<table class="table table-striped">-->
+<!--  <thead>-->
+<!--  <tr>-->
+<!--    <th>Id</th>-->
+<!--    <th>Name</th>-->
+<!--    <th></th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--  <tr *ngFor="let task of tasks$ | async | search:this.searchComponent.searchText">-->
+<!--    <td>{{task.id}}</td>-->
+<!--      <a routerLink="/detail/{{task.id}}" routerLinkActive="active">-->
+<!--        <td>{{task.name}}</td>-->
+<!--      </a>-->
+<!--    <td><button (click)="this.taskService.deleteTask(this.task)"> Х </button></td>-->
+<!--    <td><button (click)="this.taskService.makeTaskImportant(this.task)"> 0 </button></td>-->
+<!--  </tr>-->
+<!--  </tbody>-->
+<!--</table>-->
 
 <br>
 <br>
