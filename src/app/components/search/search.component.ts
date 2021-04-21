@@ -1,12 +1,6 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {TaskService} from '../../services/task.service';
 import {TodosComponent} from '../todos/todos.component';
-import {LIVE_ANNOUNCER_ELEMENT_TOKEN_FACTORY} from '@angular/cdk/a11y';
-import {ObserversModule} from '@angular/cdk/observers';
-import {map, switchMap} from 'rxjs/operators';
-import {ParamMap, Params} from '@angular/router';
-import {Observable} from 'rxjs';
-import {getTableDuplicateColumnNameError} from '@angular/cdk/table/table-errors';
 
 @Component({
   selector: 'app-search',
@@ -15,50 +9,27 @@ import {getTableDuplicateColumnNameError} from '@angular/cdk/table/table-errors'
 })
 export class SearchComponent implements OnInit, OnChanges {
 
-  @Input() searchText: string;
+  searchText: string;
   searchOption: string;
 
-
   constructor(
-    private taskService: TaskService, private todos: TodosComponent) {
+    private taskService: TaskService) {
   }
 
   ngOnInit(): void {
-    this.todos.tasksList$=this.taskService.getTasks();
   }
-
 
   ngOnChanges(changes: SimpleChanges) {
     // changes.prop contains the old and the new value...
-
-    if (this.searchText === '') {
-
-      this.todos.tasksList$.pipe(
-        //map(tasks=> { this.taskService.getTasksByString(this.searchText) } ),
-        switchMap((x)=> {
-          console.log(x)
-          return this.taskService.getTasks()
-
-          //return this.taskService.getTasksByString(this.searchText)
-        })).subscribe(value => {
-            console.log(value)
-      })
-
-    } else{
-
-      this.todos.tasksList$.pipe(
-        //map(tasks=> { this.taskService.getTasksByString(this.searchText) } ),
-        switchMap((x)=> {
-          console.log(x)
-          return this.taskService.getTasksByString(this.searchText)
-        })
-
-      ).subscribe(value => {
-            console.log(value)
-        })
-
-    }
   }
 
+  onChange() {
+    if (!this.searchText) {
+      TodosComponent.arguments.tasks$.next(this.taskService.getTasks());
+    } else {
+      console.log(this.searchText);
+      TodosComponent.arguments.tasks$.next(this.taskService.getTasksByString(this.searchText));
+    }
 
+  }
 }

@@ -1,10 +1,10 @@
 export class Message {
   constructor(
     public text: string = '',
-    public readonly created: number = Date.now()) {}
+    public readonly created: number = Date.now()) {
+  }
 
   public toString(): string {
-    const { created, text } = this;
-    return `Message created at: ${created} - Text: ${text}`;
+    return `Message created at: ${this.created} - Text: ${this.text}`;
   }
 }
