@@ -25,6 +25,7 @@ export class TodosComponent implements OnInit {
     ) {
   }
 
+<<<<<<< Scratch
   ngOnInit(): void{
     this.tasks$=this.route.paramMap.pipe(
       switchMap(params=>{
@@ -32,6 +33,13 @@ export class TodosComponent implements OnInit {
         return this.taskService.getTasks();
       })
     );
+=======
+  ngOnInit() {
+    // this.tasksSList$ = this.searchService.GetTsk
+    // this.searchService.search()
+    // console.log(this.tasksSList$.subscribe())
+    // this.searchService.search()
+>>>>>>> local
   }
 
 

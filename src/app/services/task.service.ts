@@ -55,8 +55,13 @@ export class TaskService {
   getTasksByString(str:string){
     return this.tasks$
       .pipe(
+<<<<<<< Scratch
       map(tasks=>tasks.filter(task=>task.name.toLowerCase().includes(str.toLowerCase())))
     );
+=======
+        map(tasks => tasks.filter(task => task.name.includes(str)))
+      );
+>>>>>>> local
   }
 
 
