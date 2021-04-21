@@ -1,12 +1,8 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {TaskService} from '../../services/task.service';
 import {TodosComponent} from '../todos/todos.component';
-import {LIVE_ANNOUNCER_ELEMENT_TOKEN_FACTORY} from '@angular/cdk/a11y';
-import {ObserversModule} from '@angular/cdk/observers';
 import {map, switchMap} from 'rxjs/operators';
-import {ParamMap, Params} from '@angular/router';
-import {Observable} from 'rxjs';
-import {getTableDuplicateColumnNameError} from '@angular/cdk/table/table-errors';
+
 
 @Component({
   selector: 'app-search',
@@ -30,28 +26,33 @@ export class SearchComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     // changes.prop contains the old and the new value...
-    let tasks;
+
     if (this.searchText === '') {
 
-      // this.taskService.getTasks().pipe(
-      //   switchMap((value) => {
-      //     console.log(value);
-      //     return value;
-      //   })
-      // ).subscribe(value =>
-      //
-      //   console.log(value)
-      // );
+      this.todos.tasksList$.pipe(
+        //map(tasks=> { this.taskService.getTasksByString(this.searchText) } ),
+        switchMap((x)=> {
+          console.log(x)
+          return this.taskService.getTasks()
+
+          //return this.taskService.getTasksByString(this.searchText)
+        })).subscribe(value => {
+        console.log(value)
+      })
 
     } else{
 
       this.todos.tasksList$.pipe(
-        switchMap((x)=> (
-          this.taskService.getTasks()))).subscribe(
-            value => console.log(value)
-      )
+        //map(tasks=> { this.taskService.getTasksByString(this.searchText) } ),
+        switchMap((x)=> {
+          console.log(x)
+          return this.taskService.getTasksByString(this.searchText)
+        })
 
-    }
+      ).subscribe(value => {
+        console.log(value)
+      })
+  }
   }
 
 

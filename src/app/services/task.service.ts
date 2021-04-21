@@ -48,7 +48,7 @@ export class TaskService {
   getTasksByString(str: string): Observable<Task[]> {
     return this.tasks$
       .pipe(
-        map(tasks => tasks.filter(task => task.name.toLowerCase().includes(str)))
+        map(tasks => tasks.filter(task => task.name.includes(str)))
       );
   }
 }

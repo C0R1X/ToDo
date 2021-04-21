@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {Task} from '../../models/taskItem';
 import {TaskService} from '../../services/task.service';
 import {SearchServiceService} from '../../services/search-service.service';
-import {TASKS} from '../../mock-tasks';
+
 
 @Component({
   selector: 'app-todos',
@@ -14,8 +14,8 @@ import {TASKS} from '../../mock-tasks';
 export class TodosComponent implements OnInit{
 
   tasks$: Observable<Task[]> = this.taskService.getTasks();
-  tasksList$: Observable<Task[]>;
-  tasksSList$: Observable<Task[]> = this.searchService.GetTsk;
+  tasksList$: Observable<Task[]> = this.taskService.getTasks();
+
 
   searchText: string;
 
@@ -28,10 +28,10 @@ export class TodosComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.tasksSList$ = this.searchService.GetTsk
-    this.searchService.search()
-    console.log(this.tasksSList$.subscribe())
-    this.searchService.search()
+    // this.tasksSList$ = this.searchService.GetTsk
+    // this.searchService.search()
+    // console.log(this.tasksSList$.subscribe())
+    // this.searchService.search()
   }
 
 }
