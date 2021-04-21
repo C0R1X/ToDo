@@ -1,11 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { BehaviorSubject, Observable, of} from 'rxjs';
-import { Task } from '../models/taskItem';
-import { TASKS } from '../mock-tasks'
-import {filter, map} from 'rxjs/operators';
-
-
+import {BehaviorSubject, Observable} from 'rxjs';
+import {Task} from '../models/taskItem';
+import {TASKS} from '../mock-tasks';
+import {map} from 'rxjs/operators';
 
 
 @Injectable({
@@ -13,56 +11,44 @@ import {filter, map} from 'rxjs/operators';
 })
 export class TaskService {
 
-  // @ts-ignore
-  private tasks$:BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>(TASKS);
+  private tasks$: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>(TASKS as Task[]);
 
-  done:boolean = false;     //
+  done: boolean = false;
 
-  constructor() {
+  getTasks() {
+    return this.tasks$;
   }
 
-  getTasks(){
-    return this.tasks$
-    //   .pipe(
-    //   map(tasks=>tasks.filter(task=>task.name.toLowerCase().includes(SearchComponent.arguments.searchText)))
-    // );
+  getTask(id: string): Observable<Task> {
+    return this.getTasks()
+      .pipe(
+        map(tasks => tasks.find(task => task.id === +id))
+      );
   }
 
-  getTask(id:number | string){
-    return this.getTasks().pipe(
-      map(tasks=>tasks.find(task=>task.id===+id))
-    );
+  addTask(name: string, desc: string, time: string) {
+    const tasks = this.tasks$.getValue();
+    const task = new Task(tasks.length, name, desc, time);
+    tasks.push(task);
+    this.tasks$.next(tasks);
   }
 
-  addTask(id:number,name:string,desc:string,time:string){
-    TASKS.push(new Task(id,name,desc,time));
-
-    // @ts-ignore
-    this.tasks$.next(TASKS);
+  deleteTask(task: Task) {
+    let tasks = this.tasks$.getValue();
+    tasks = tasks.filter(x => x.id !== task.id);
+    this.tasks$.next(tasks);
   }
 
-  deleteTask(task:Task){
-    console.log(task);
-    this.tasks$.getValue().splice(this.tasks$.getValue().indexOf(task),1);
+  makeTaskImportant(task: Task) {
+    let t = task;
+    t.important = true;
+    this.tasks$.getValue().splice(this.tasks$.getValue().indexOf(task), 1, t);
   }
 
-  makeTaskImportant(task:Task){
-    let t= task;
-    t.important=true;
-    this.tasks$.getValue().splice(this.tasks$.getValue().indexOf(task),1,t)
-  }
-
-  getTasksByString(str:string){
+  getTasksByString(str: string): Observable<Task[]> {
     return this.tasks$
       .pipe(
-<<<<<<< Scratch
-      map(tasks=>tasks.filter(task=>task.name.toLowerCase().includes(str.toLowerCase())))
-    );
-=======
         map(tasks => tasks.filter(task => task.name.includes(str)))
       );
->>>>>>> local
   }
-
-
 }

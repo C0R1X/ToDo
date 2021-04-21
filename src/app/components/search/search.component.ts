@@ -1,31 +1,29 @@
-import {Component, OnInit, OnChanges, SimpleChanges, Input} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {TaskService} from '../../services/task.service';
-
-
+import {TodosComponent} from '../todos/todos.component';
+import {LIVE_ANNOUNCER_ELEMENT_TOKEN_FACTORY} from '@angular/cdk/a11y';
+import {ObserversModule} from '@angular/cdk/observers';
+import {map, switchMap} from 'rxjs/operators';
+import {ParamMap, Params} from '@angular/router';
+import {Observable} from 'rxjs';
+import {getTableDuplicateColumnNameError} from '@angular/cdk/table/table-errors';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnChanges {
 
-
-  searchText: string;
+  @Input() searchText: string;
   searchOption: string;
 
-  constructor(
-    private taskService:TaskService)
-  { }
 
-  ngOnInit(): void {
-<<<<<<< Scratch
+  constructor(
+    private taskService: TaskService, private todos: TodosComponent) {
   }
 
-  OnChange(){
-    this.taskService.getTasksByString(this.searchText);
-    console.log("OK sA", this.searchText)
-=======
+  ngOnInit(): void {
     this.todos.tasksList$=this.taskService.getTasks();
   }
 
@@ -60,7 +58,7 @@ export class SearchComponent implements OnInit {
         })
 
     }
->>>>>>> local
   }
+
 
 }

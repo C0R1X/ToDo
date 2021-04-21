@@ -31,7 +31,6 @@ export class TodosAddingComponent implements OnInit {
 
   onSubmit(){
     this.TaskService.addTask(
-      0,
       this.myForm.controls.taskName.value,
       this.myForm.controls.taskDesc.value,
       this.myForm.controls.taskTime.value
