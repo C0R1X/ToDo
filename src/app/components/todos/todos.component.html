@@ -20,6 +20,12 @@
     </li>
 </ul>
 
+<ul>
+  <li *ngIf="srchList$ | async" g>
+      {{srchList$.toString()}}
+  </li>
+</ul>
+
 <!--<ul class="tasks2">-->
 <!--  <li *ngFor="let task of tasksSList$ | async ">-->
 <!--    <span id="imp_status" *ngIf="task.important"> !!! </span>-->

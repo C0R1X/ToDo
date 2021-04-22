@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {TaskService} from '../../services/task.service';
 import {TodosComponent} from '../todos/todos.component';
 import {map, switchMap} from 'rxjs/operators';
+import {SearchServiceService} from '../../services/search-service.service';
 
 
 @Component({
@@ -16,7 +17,9 @@ export class SearchComponent implements OnInit, OnChanges {
 
 
   constructor(
-    private taskService: TaskService, private todos: TodosComponent) {
+    private taskService: TaskService,
+    private todos: TodosComponent,
+    private searchService: SearchServiceService) {
   }
 
   ngOnInit(): void {
@@ -26,6 +29,9 @@ export class SearchComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     // changes.prop contains the old and the new value...
+    //this.searchService.search()
+    this.searchService.search(this.searchText)
+
 
     if (this.searchText === '') {
 
@@ -38,7 +44,11 @@ export class SearchComponent implements OnInit, OnChanges {
           //return this.taskService.getTasksByString(this.searchText)
         })).subscribe(value => {
         console.log(value)
+
+
       })
+
+
 
     } else{
 

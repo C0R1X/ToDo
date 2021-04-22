@@ -16,7 +16,7 @@ export class TodosComponent implements OnInit{
   tasks$: Observable<Task[]> = this.taskService.getTasks();
   tasksList$: Observable<Task[]> = this.taskService.getTasks();
 
-
+  srchList$: Observable<string>=this.searchService.GetTsk;
   searchText: string;
 
   constructor(
@@ -28,6 +28,8 @@ export class TodosComponent implements OnInit{
   }
 
   ngOnInit() {
+    //this.searchService.search(this.searchText)
+    //this.searchService.GetTsk.subscribe()
     // this.tasksSList$ = this.searchService.GetTsk
     // this.searchService.search()
     // console.log(this.tasksSList$.subscribe())
