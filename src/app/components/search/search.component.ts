@@ -1,6 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {TaskService} from '../../services/task.service';
-import {TodosComponent} from '../todos/todos.component';
+import {Component, Input, OnInit} from '@angular/core';
 import {SearchService} from '../../services/search.service';
 
 
@@ -23,9 +21,7 @@ export class SearchComponent implements OnInit {
 
   }
 
-
-  onChanges(e) {
-      this.searchService.search(e.srcElement.value);
+  keyUp(e) {
+    this.searchService.search(e.srcElement.value);
   }
-
 }
