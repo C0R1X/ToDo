@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {Task} from '../models/taskItem';
 import {TASKS} from '../mock-tasks';
-import {map} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 
 
 @Injectable({
@@ -48,7 +48,7 @@ export class TaskService {
   getTasksByString(str: string): Observable<Task[]> {
     return this.tasks$
       .pipe(
-        map(tasks => tasks.filter(task => task.name.includes(str)))
+        map(tasks => tasks.filter(task => task.name.includes(str))),
       )
   }
 }

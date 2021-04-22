@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
-import {Task} from '../../models/taskItem';
+import {combineLatest, Observable} from 'rxjs';
 import {TaskService} from '../../services/task.service';
-import {SearchServiceService} from '../../services/search-service.service';
+import {SearchService} from '../../services/search.service';
+import {Task} from '../../models/taskItem';
+import {map, tap} from 'rxjs/operators';
 
 
 @Component({
@@ -11,30 +11,31 @@ import {SearchServiceService} from '../../services/search-service.service';
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.css']
 })
-export class TodosComponent implements OnInit{
+export class TodosComponent implements OnInit {
 
-  tasks$: Observable<Task[]> = this.taskService.getTasks();
-  tasksList$: Observable<Task[]> = this.taskService.getTasks();
+  tasksList$ = this.taskService.getTasks();
+  srchList$ = this.searchService.searchData$;
+  filteredTasks$: Observable<Task[]>;
 
-  srchList$: Observable<string>=this.searchService.GetTsk;
   searchText: string;
 
   constructor(
-    private searchService: SearchServiceService,
-    private taskService: TaskService,
-    private route: ActivatedRoute
+    private searchService: SearchService,
+    private taskService: TaskService
   ) {
-
+    this.filteredTasks$ = combineLatest([this.tasksList$, this.srchList$])
+      .pipe(
+        tap(x => console.log(x)),
+        map(([tasks, searchText]) => {
+          if (searchText == null) {
+            return tasks;
+          }
+          return tasks.filter(x => x.name.toLowerCase().includes(searchText.toLowerCase()));
+        })
+      );
   }
 
   ngOnInit() {
-    this.searchService.search(this.searchText)
-
-    //this.searchService.GetTsk.subscribe()
-    // this.tasksSList$ = this.searchService.GetTsk
-    // this.searchService.search()
-    // console.log(this.tasksSList$.subscribe())
-    // this.searchService.search()\
 
   }
 
