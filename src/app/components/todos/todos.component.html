@@ -11,6 +11,7 @@
 
 <ul class="tasks">
     <li *ngFor="let task of tasksList$ | async ">
+
       <span id="imp_status" *ngIf="task.important"> !!! </span>
       <a routerLink="/detail/{{task.id}}" routerLinkActive="active">
             <h4>{{task.name}} {{task.id}}</h4>
@@ -21,8 +22,8 @@
 </ul>
 
 <ul>
-  <li *ngIf="srchList$ | async" g>
-      {{srchList$.toString()}}
+  <li>
+      {{srchList$ | async }}
   </li>
 </ul>
 

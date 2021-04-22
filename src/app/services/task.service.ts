@@ -49,6 +49,6 @@ export class TaskService {
     return this.tasks$
       .pipe(
         map(tasks => tasks.filter(task => task.name.includes(str)))
-      );
+      )
   }
 }

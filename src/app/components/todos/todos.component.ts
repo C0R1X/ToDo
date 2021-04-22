@@ -28,12 +28,14 @@ export class TodosComponent implements OnInit{
   }
 
   ngOnInit() {
-    //this.searchService.search(this.searchText)
+    this.searchService.search(this.searchText)
+
     //this.searchService.GetTsk.subscribe()
     // this.tasksSList$ = this.searchService.GetTsk
     // this.searchService.search()
     // console.log(this.tasksSList$.subscribe())
-    // this.searchService.search()
+    // this.searchService.search()\
+
   }
 
 }

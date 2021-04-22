@@ -1,8 +1,9 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {TaskService} from '../../services/task.service';
 import {TodosComponent} from '../todos/todos.component';
-import {map, switchMap} from 'rxjs/operators';
+import {combineAll, map, switchMap} from 'rxjs/operators';
 import {SearchServiceService} from '../../services/search-service.service';
+import {combineLatest, pipe} from 'rxjs';
 
 
 @Component({
@@ -30,13 +31,16 @@ export class SearchComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     // changes.prop contains the old and the new value...
     //this.searchService.search()
-    this.searchService.search(this.searchText)
 
-
+    combineLatest([this.todos.tasksList$,this.todos.srchList$])
     if (this.searchText === '') {
 
       this.todos.tasksList$.pipe(
-        //map(tasks=> { this.taskService.getTasksByString(this.searchText) } ),
+
+
+        map(tasks=> { combineLatest([tasks,this.todos.srchList$]) } ),
+
+
         switchMap((x)=> {
           console.log(x)
           return this.taskService.getTasks()
@@ -53,17 +57,26 @@ export class SearchComponent implements OnInit, OnChanges {
     } else{
 
       this.todos.tasksList$.pipe(
-        //map(tasks=> { this.taskService.getTasksByString(this.searchText) } ),
+        //map(tasks=> { combineLatest([tasks,this.todos.srchList$]) } ),
+
         switchMap((x)=> {
           console.log(x)
-          return this.taskService.getTasksByString(this.searchText)
-        })
 
-      ).subscribe(value => {
+          return this.taskService.getTasksByString(this.searchText)
+
+        })
+        //map(combineLatest([this.todos.tasksList$,this.todos.tasks$]))
+    ).subscribe(value => {
         console.log(value)
+
       })
   }
-  }
+
+
+
+
+
+    }
 
 
 }
