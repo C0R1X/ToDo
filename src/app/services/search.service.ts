@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {BehaviorSubject, combineLatest} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,13 +7,20 @@ import {BehaviorSubject, Subject} from 'rxjs';
 export class SearchService {
 
   private search$ = new BehaviorSubject<string>(null);
+  private searchOpt$ = new BehaviorSubject<string>(null);
+  private searchC$ = combineLatest([this.search$,this.searchOpt$])
 
   get searchData$() {
-    return this.search$;
+    return this.searchC$;
   }
 
   search(task: string) {
-    this.search$.next(task);
+    this.searchC$[0].next(task);
+
   }
+  searchOpt(option: string){
+    this.searchC$[1].next(option);
+  }
+
 }
 

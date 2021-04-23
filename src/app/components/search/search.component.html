@@ -1,14 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="input-field col c6">
-      dsd
       <input type="text" (keyup)="keyUp($event)" autocomplete="off">
     </div>
   </div>
 
   <mat-form-field appearance="fill">
     <mat-label>Select an option</mat-label>
-    <mat-select [(ngModel)]="searchOption">
+    <mat-select (select)="selected($event)">
       <mat-option value="id">id</mat-option>
       <mat-option value="name">name</mat-option>
       <mat-option value="desc">description</mat-option>

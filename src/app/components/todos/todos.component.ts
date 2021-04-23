@@ -3,7 +3,7 @@ import {combineLatest, Observable} from 'rxjs';
 import {TaskService} from '../../services/task.service';
 import {SearchService} from '../../services/search.service';
 import {Task} from '../../models/taskItem';
-import {debounce, debounceTime, map, tap} from 'rxjs/operators';
+import {debounceTime, map, tap} from 'rxjs/operators';
 
 
 @Component({
@@ -15,9 +15,11 @@ export class TodosComponent implements OnInit {
 
   tasksList$ = this.taskService.getTasks();
   srchList$ = this.searchService.searchData$;
+
   filteredTasks$: Observable<Task[]>;
 
   searchText: string;
+  searchOption: string;
 
   constructor(
     private searchService: SearchService,
@@ -37,28 +39,37 @@ export class TodosComponent implements OnInit {
 
   ngOnInit() {
 
-    switch (this.searchText) {
-      case '': {
-        this.filteredTasks$ = this.tasksList$;
-      }
-      default: {
-        this.filteredTasks$ = combineLatest([this.tasksList$, this.srchList$])
-          .pipe(
-            debounceTime(1100),
-            tap(x => console.log(x)),
-            map(([tasks, searchText]) => {
-
-              if (searchText == null) {
-                return tasks;
+    if (this.searchText === '') {
+      this.filteredTasks$ = this.tasksList$;
+    } else {
+      this.filteredTasks$ = combineLatest([this.tasksList$, this.srchList$[0],this.srchList$[1]])
+        .pipe(
+          debounceTime(1100),
+          tap(x => console.log(x)),
+          map(([tasks, searchText,searchOption]) => {
+            return tasks.filter(x => {
+              switch (searchOption) {
+                case 'name': {
+                  x.name.toLowerCase().includes(searchText.toLowerCase());
+                }
+                case 'id': {
+                  if (parseInt(searchText)) {
+                    x.id === parseInt(searchText[0]);
+                  }
+                }
+                case 'desc': {
+                  x.desc.toLowerCase().includes(searchText.toLowerCase());
+                }
               }
-              return tasks.filter(x => x.name.toLowerCase().includes(searchText.toLowerCase()));
-            })
-          );
-      }
+            });
 
-
+          })
+        );
     }
+
 
   }
 
 }
+
+
