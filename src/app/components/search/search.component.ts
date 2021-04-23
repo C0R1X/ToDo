@@ -13,9 +13,9 @@ export class SearchComponent implements OnInit {
 
   searchForm: FormGroup;
   options = [
-    {name: "Important"},
-    {name: "Not Important"}
-  ]
+    {name: 'Important'},
+    {name: 'Not Important'}
+  ];
 
 
   constructor(
@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
 
     this.searchForm = FormBuilder.group({
         searchId: ['', Validators.required],
-        searchOption:['',Validators.required],
+        searchOption: ['', Validators.required],
         searchName: ['', Validators.required],
         searchDesc: ['', Validators.required]
       }
@@ -33,9 +33,10 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchForm.valueChanges.pipe(
-      tap(value=>{console.log(value)}),
-      multicast(()=>
-      {
+      tap(value => {
+        console.log(value);
+      }),
+      multicast(() => {
 
       }));
 

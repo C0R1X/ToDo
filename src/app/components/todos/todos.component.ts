@@ -36,34 +36,35 @@ export class TodosComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.filteredTasks$ = combineLatest([this.tasksList$, this.srchText$,this.srchOpt$])
-        .pipe(
-          debounceTime(1100),
-          tap(x => console.log(x)),
-          map(([tasks, searchText,searchOption]) => {
-            return tasks.filter(x => {
-              return this.filterOnSelect(x,searchText,searchOption)
-            });
+    this.filteredTasks$ = combineLatest([this.tasksList$, this.srchText$, this.srchOpt$])
+      .pipe(
+        debounceTime(1100),
+        tap(x => console.log(x)),
+        map(([tasks, searchText, searchOption]) => {
+          return tasks.filter(x => {
+            return this.filterOnSelect(x, searchText, searchOption);
+          });
 
-          })
-        );
-    }
+        })
+      );
+  }
 
-   // Filtering tasks
+  // Filtering tasks
 
-  filterOnSelect(task:Task,searchText:string,searchOption:string){
+  filterOnSelect(task: Task, searchText: string, searchOption: string) {
     switch (searchOption) {
       case 'name': {
         return task.name.toLowerCase().includes(searchText.toLowerCase());
       }
       case 'id': {
-        if (task.id === parseInt(searchText[0]))
+        if (task.id === parseInt(searchText[0])) {
           return task;
+        }
       }
       case 'desc': {
         return task.desc.toLowerCase().includes(searchText.toLowerCase());
       }
-      default:{
+      default: {
         return task;
       }
     }

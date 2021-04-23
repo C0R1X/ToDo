@@ -7,12 +7,12 @@
 <!--</div>-->
 
 
-<form [formGroup]="searchForm" novalidate >
+<form [formGroup]="searchForm" novalidate>
   <div class="form-group">
     <label>Task name</label>
     <br>
     <mat-form-field>
-    <input matInput class="form-control" type="text" formControlName="taskName">
+      <input matInput class="form-control" type="text" formControlName="taskName">
     </mat-form-field>
     <div class="alert alert-danger"
          *ngIf="searchForm.controls['taskName'].invalid && searchForm.controls['taskName'].touched">
