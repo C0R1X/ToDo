@@ -14,12 +14,10 @@ import {debounceTime, map, tap} from 'rxjs/operators';
 export class TodosComponent implements OnInit {
 
   tasksList$ = this.taskService.getTasks();
-  srchList$ = this.searchService.searchData$;
+  srchText$ = this.searchService.searchText$;
+  srchOpt$ = this.searchService.searchOption$;
 
   filteredTasks$: Observable<Task[]>;
-
-  searchText: string;
-  searchOption: string;
 
   constructor(
     private searchService: SearchService,
@@ -38,36 +36,37 @@ export class TodosComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    if (this.searchText === '') {
-      this.filteredTasks$ = this.tasksList$;
-    } else {
-      this.filteredTasks$ = combineLatest([this.tasksList$, this.srchList$[0],this.srchList$[1]])
+      this.filteredTasks$ = combineLatest([this.tasksList$, this.srchText$,this.srchOpt$])
         .pipe(
           debounceTime(1100),
           tap(x => console.log(x)),
           map(([tasks, searchText,searchOption]) => {
             return tasks.filter(x => {
-              switch (searchOption) {
-                case 'name': {
-                  x.name.toLowerCase().includes(searchText.toLowerCase());
-                }
-                case 'id': {
-                  if (parseInt(searchText)) {
-                    x.id === parseInt(searchText[0]);
-                  }
-                }
-                case 'desc': {
-                  x.desc.toLowerCase().includes(searchText.toLowerCase());
-                }
-              }
+              return this.filterOnSelect(x,searchText,searchOption)
             });
 
           })
         );
     }
 
+   // Filtering tasks
 
+  filterOnSelect(task:Task,searchText:string,searchOption:string){
+    switch (searchOption) {
+      case 'name': {
+        return task.name.toLowerCase().includes(searchText.toLowerCase());
+      }
+      case 'id': {
+        if (task.id === parseInt(searchText[0]))
+          return task;
+      }
+      case 'desc': {
+        return task.desc.toLowerCase().includes(searchText.toLowerCase());
+      }
+      default:{
+        return task;
+      }
+    }
   }
 
 }
