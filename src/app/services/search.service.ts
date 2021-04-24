@@ -6,27 +6,45 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class SearchService {
 
-  private search$ = new BehaviorSubject<string>(null);
-  private searchOpt$ = new BehaviorSubject<string>(null);
+  private Id$ = new BehaviorSubject<number>(null);
+  private Name$ = new BehaviorSubject<string>(null);
+  private Desc$ = new BehaviorSubject<string>(null);
+  private Opt$ = new BehaviorSubject<string>(null);
 
 
-  get searchText$() {
-    return this.search$;
+  get searchId$() {
+    return this.Id$;
+  }
+
+  get searchName$() {
+    return this.Name$;
+  }
+
+  get searchDesc$() {
+    return this.Desc$;
   }
 
   get searchOption$() {
-    return this.searchOpt$;
+    return this.Opt$;
   }
 
 
-  search(task: string) {
-    this.search$.next(task);
+  SearchId(id: number) {
+    this.searchId$.next(id);
+  }
 
+  SearchName(name: string) {
+    this.searchName$.next(name);
+  }
+
+  SearchDesc(desc: string) {
+    this.searchDesc$.next(desc);
   }
 
   searchOpt(option: string) {
-    this.searchOpt$.next(option);
+    this.searchOption$.next(option);
   }
+
 
 }
 

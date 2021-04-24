@@ -14,8 +14,10 @@ import {debounceTime, map, tap} from 'rxjs/operators';
 export class TodosComponent implements OnInit {
 
   tasksList$ = this.taskService.getTasks();
-  srchText$ = this.searchService.searchText$;
+  srchId$ = this.searchService.searchId$;
+  srchName$ = this.searchService.searchName$;
   srchOpt$ = this.searchService.searchOption$;
+  srchDesc$ = this.searchService.searchDesc$;
 
   filteredTasks$: Observable<Task[]>;
 
@@ -36,13 +38,13 @@ export class TodosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.filteredTasks$ = combineLatest([this.tasksList$, this.srchText$, this.srchOpt$])
+    this.filteredTasks$ = combineLatest([this.tasksList$, this.srchId$, this.srchName$, this.srchDesc$, this.srchOpt$])
       .pipe(
         debounceTime(1100),
         tap(x => console.log(x)),
-        map(([tasks, searchText, searchOption]) => {
+        map(([tasks, searchId, searchName, searchDesc, searchOption]) => {
           return tasks.filter(x => {
-            return this.filterOnSelect(x, searchText, searchOption);
+            return this.filterOnSelect(x, searchId, searchName, searchDesc, searchOption);
           });
 
         })
@@ -51,19 +53,32 @@ export class TodosComponent implements OnInit {
 
   // Filtering tasks
 
-  filterOnSelect(task: Task, searchText: string, searchOption: string) {
+  filterOnSelect(task: Task, searchId: number, searchName: string, searchDesc: string, searchOption: string) {
     switch (searchOption) {
-      case 'name': {
-        return task.name.toLowerCase().includes(searchText.toLowerCase());
+      // case 'Not Important': {
+      //   return task.name.toLowerCase().includes(searchText.toLowerCase());
+      // }
+      // case 'Important': {
+      //   return task.desc.toLowerCase().includes(searchText.toLowerCase());
+      // }
+      // case 'id': {
+      //   if (task.id === searchId) {
+      //     return task;
+      //   }
+      // }
+      case 'Not Important': {
+        return task.important != true,
+        task.id === searchId,
+          task.name.includes(searchName),
+          task.desc.includes(searchDesc);
       }
-      case 'id': {
-        if (task.id === parseInt(searchText[0])) {
-          return task;
-        }
+      case 'Important': {
+        return task.important != true,
+        task.id === searchId,
+          task.name.includes(searchName),
+          task.desc.includes(searchDesc);
       }
-      case 'desc': {
-        return task.desc.toLowerCase().includes(searchText.toLowerCase());
-      }
+
       default: {
         return task;
       }
