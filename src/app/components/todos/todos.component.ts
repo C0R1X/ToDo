@@ -66,14 +66,18 @@ export class TodosComponent implements OnInit {
       //     return task;
       //   }
       // }
+      case 'All':{
+        if(searchId)
+          return task;
+      }
       case 'Not Important': {
-        return task.important != true,
+        return task.important!= true,
         task.id === searchId,
           task.name.includes(searchName),
           task.desc.includes(searchDesc);
       }
       case 'Important': {
-        return task.important != true,
+        return task.important === true,
         task.id === searchId,
           task.name.includes(searchName),
           task.desc.includes(searchDesc);
@@ -84,6 +88,9 @@ export class TodosComponent implements OnInit {
       }
     }
   }
+
+
+
 
 }
 
