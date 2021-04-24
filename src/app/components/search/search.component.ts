@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SearchService} from '../../services/search.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {map, multicast, tap} from 'rxjs/operators';
 
 
 @Component({
@@ -11,10 +12,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class SearchComponent implements OnInit {
 
   searchForm: FormGroup;
-  options = [
-    {name: 'Important'},
-    {name: 'Not Important'}
-  ];
+  options = ['Important','Not Important']
+
 
 
   constructor(
@@ -31,9 +30,9 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.searchForm.controls['taskName'].valueChanges.subscribe(x=>{
-    //     console.log(x)
-    // });
+    this.searchForm.valueChanges.pipe(
+      tap(x=>{console.log(x)})
+    ).subscribe();
 
   }
 }
