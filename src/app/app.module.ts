@@ -9,9 +9,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TodosDetailedComponent} from './components/todos-detailed/todos-detailed.component';
-import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {SearchComponent} from './components/search/search.component';
 import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
 
 
 @NgModule({
@@ -27,10 +27,10 @@ import {MatSelectModule} from '@angular/material/select';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTabsModule,
+    MatSelectModule,
+    MatInputModule,
     ReactiveFormsModule,
-    FormsModule,
-    Ng2SearchPipeModule,
-    MatSelectModule
+    FormsModule
   ],
   bootstrap: [AppComponent]
 })

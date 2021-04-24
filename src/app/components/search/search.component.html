@@ -9,39 +9,50 @@
 
 <form [formGroup]="searchForm" novalidate>
   <div class="form-group">
+    <label>Task id</label>
+    <br>
+    <mat-form-field>
+      <input matinput placeholder="Id" class="form-control" type="text" formControlName="searchId">
+    </mat-form-field>
+    <div class="alert alert-danger"
+         *ngIf="searchForm.controls['searchId'].invalid && searchForm.controls['searchId'].touched">
+      Не указано имя задания
+    </div>
+  </div>
+  <div class="form-group">
     <label>Task name</label>
     <br>
     <mat-form-field>
-      <input matInput class="form-control" type="text" formControlName="taskName">
+      <input matInput class="form-control" type="text" formControlName="searchName">
     </mat-form-field>
     <div class="alert alert-danger"
-         *ngIf="searchForm.controls['taskName'].invalid && searchForm.controls['taskName'].touched">
+         *ngIf="searchForm.controls['searchName'].invalid && searchForm.controls['searchName'].touched">
       Не указано имя задания
     </div>
-    <div class="form-group">
-      <mat-form-field appearance="fill">
-        <mat-label>Select an option</mat-label>
-
-        <mat-select formControlName="searchOption">
-          <mat-option value=""></mat-option>
-          <mat-option *ngFor="let t of options">
-            {{t}}
-          </mat-option>
-
-        </mat-select>
-      </mat-form-field>
-    </div>
   </div>
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Select an option</mat-label>
+      <mat-select formControlName="searchOption">
+        <mat-option value=""></mat-option>
+        <mat-option *ngFor="let t of options">
+          {{t}}
+        </mat-option>
+
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <div class="form-group">
     <label>Description</label>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Task description" class="form-control" type="text" formControlName="taskDesc">
+      <input matInput placeholder="Task description" class="form-control" type="text" formControlName="searchDesc">
     </mat-form-field>
 
 
     <div class="alert alert-danger"
-         *ngIf="searchForm.controls['taskDesc'].invalid && searchForm.controls['taskDesc'].touched">
+         *ngIf="searchForm.controls['searchDesc'].invalid && searchForm.controls['searchDesc'].touched">
       Не указано подробное описание
     </div>
   </div>
@@ -50,3 +61,4 @@
     Form value: {{ searchForm.value | json }}
   </p>
 </form>
+
