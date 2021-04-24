@@ -11,8 +11,8 @@
   <div class="form-group">
     <label>Task id</label>
     <br>
-    <mat-form-field>
-      <input matinput placeholder="Id" class="form-control" type="text" formControlName="searchId">
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="Id" class="form-control" type="text" formControlName="searchId">
     </mat-form-field>
     <div class="alert alert-danger"
          *ngIf="searchForm.controls['searchId'].invalid && searchForm.controls['searchId'].touched">
@@ -22,8 +22,8 @@
   <div class="form-group">
     <label>Task name</label>
     <br>
-    <mat-form-field>
-      <input matInput class="form-control" type="text" formControlName="searchName">
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="Name" class="form-control" type="text" formControlName="searchName">
     </mat-form-field>
     <div class="alert alert-danger"
          *ngIf="searchForm.controls['searchName'].invalid && searchForm.controls['searchName'].touched">
@@ -34,11 +34,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Select an option</mat-label>
       <mat-select formControlName="searchOption">
-        <mat-option value=""></mat-option>
-        <mat-option *ngFor="let t of options">
-          {{t}}
-        </mat-option>
-
+        <mat-option *ngFor="let t of options" [value]="t">{{t.name}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
@@ -46,19 +42,23 @@
   <div class="form-group">
     <label>Description</label>
     <br>
-    <mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
       <input matInput placeholder="Task description" class="form-control" type="text" formControlName="searchDesc">
     </mat-form-field>
 
+    <!--    <div class="alert alert-danger"-->
+    <!--         *ngIf="searchForm.controls['searchDesc'].invalid && searchForm.controls['searchDesc'].touched">-->
+    <!--      Не указано подробное описание-->
+    <!--    </div>-->
 
-    <div class="alert alert-danger"
-         *ngIf="searchForm.controls['searchDesc'].invalid && searchForm.controls['searchDesc'].touched">
-      Не указано подробное описание
-    </div>
   </div>
+
   <br><br>
+
   <p>
     Form value: {{ searchForm.value | json }}
   </p>
+
 </form>
 
