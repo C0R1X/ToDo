@@ -44,8 +44,8 @@ export class TodosComponent implements OnInit {
         tap(x => console.log(x)),
         map(([tasks, searchId, searchName, searchDesc, searchOption]) => {
           return tasks.filter(x => {
-            return this.filterOnSelect(x, searchId, searchName, searchDesc, searchOption);
-          });
+            return x;   /*RRRRRRRRRRRRRRRRRREEEEEEEEEEEEEEE*/
+          });             /*        (╯°益°)╯彡┻━┻        */
 
         })
       );
@@ -53,34 +53,34 @@ export class TodosComponent implements OnInit {
 
   // Filtering tasks
 
-  filterOnSelect(task: Task, searchId: number, searchName: string, searchDesc: string, searchOption: string) {
+  filterOnId(task: Task, searchId: number) {
+    if (searchId !== null || searchId !== undefined || task.id!==searchId) {
+      return task;
+    }
+  }
+
+  filterOnName(task: Task, searchName) {
+    if (searchName !== '' || searchName !== undefined || task.name !== searchName) {
+      return task;
+    }
+  }
+
+  filterOnDesc(task: Task, searchDesc) {
+    if (searchDesc !== '' || searchDesc !== undefined || task.desc !== searchDesc) {
+      return task;
+    }
+  }
+
+  filterOnSelect(task: Task, searchOption: string) {
     switch (searchOption) {
-      // case 'Not Important': {
-      //   return task.name.toLowerCase().includes(searchText.toLowerCase());
-      // }
-      // case 'Important': {
-      //   return task.desc.toLowerCase().includes(searchText.toLowerCase());
-      // }
-      // case 'id': {
-      //   if (task.id === searchId) {
-      //     return task;
-      //   }
-      // }
-      case 'All':{
-        if(searchId)
-          return task;
+      case 'All': {
+        return task;
       }
       case 'Not Important': {
-        return task.important!= true,
-        task.id === searchId,
-          task.name.includes(searchName),
-          task.desc.includes(searchDesc);
+        return task.important!==true;
       }
       case 'Important': {
-        return task.important === true,
-        task.id === searchId,
-          task.name.includes(searchName),
-          task.desc.includes(searchDesc);
+        return task.important!==true;
       }
 
       default: {
@@ -88,8 +88,6 @@ export class TodosComponent implements OnInit {
       }
     }
   }
-
-
 
 
 }
