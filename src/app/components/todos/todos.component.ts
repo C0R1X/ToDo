@@ -44,8 +44,8 @@ export class TodosComponent implements OnInit {
         tap(x => console.log(x)),
         map(([tasks, searchId, searchName, searchDesc, searchOption]) => {
           return tasks.filter(x => {
-            return x;   /*RRRRRRRRRRRRRRRRRREEEEEEEEEEEEEEE*/
-          });             /*        (╯°益°)╯彡┻━┻        */
+            return x;
+          });
 
         })
       );
@@ -54,19 +54,19 @@ export class TodosComponent implements OnInit {
   // Filtering tasks
 
   filterOnId(task: Task, searchId: number) {
-    if (searchId !== null || searchId !== undefined || task.id!==searchId) {
+    if (searchId !== null || searchId !== undefined || task.Id !== searchId) {
       return task;
     }
   }
 
   filterOnName(task: Task, searchName) {
-    if (searchName !== '' || searchName !== undefined || task.name !== searchName) {
+    if (searchName !== '' || searchName !== undefined || task.Name !== searchName) {
       return task;
     }
   }
 
   filterOnDesc(task: Task, searchDesc) {
-    if (searchDesc !== '' || searchDesc !== undefined || task.desc !== searchDesc) {
+    if (searchDesc !== '' || searchDesc !== undefined || task.Desc !== searchDesc) {
       return task;
     }
   }
@@ -77,10 +77,10 @@ export class TodosComponent implements OnInit {
         return task;
       }
       case 'Not Important': {
-        return task.important!==true;
+        return task.Important !== true;
       }
       case 'Important': {
-        return task.important!==true;
+        return task.Important !== true;
       }
 
       default: {
