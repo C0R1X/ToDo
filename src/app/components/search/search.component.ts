@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SearchService} from '../../services/search.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {combineLatest} from 'rxjs';
+import {AsyncSubject, combineLatest, Observable} from 'rxjs';
 
 
 @Component({
@@ -13,17 +13,20 @@ export class SearchComponent implements OnInit {
 
   searchForm: FormGroup;
   options = ['All', 'Important', 'Not Important'];
-
+  InpId$: number;
+  InpName$: string;
+  InpDesc$:string;
+  InpOpt$: string;
 
   constructor(
     private searchService: SearchService,
     private FormBuilder: FormBuilder) {
 
     this.searchForm = FormBuilder.group({
-        searchId: ['', Validators.required],
-        searchOption: ['', Validators.required],
-        searchName: ['', Validators.required],
-        searchDesc: ['', Validators.required]
+        searchId: [, Validators.required],
+        searchOption: [, Validators.required],
+        searchName: [, Validators.required],
+        searchDesc: [, Validators.required]
       }
     );
   }
@@ -34,6 +37,8 @@ export class SearchComponent implements OnInit {
     this.searchForm.controls['searchName'].valueChanges.subscribe(this.searchService.searchName$);
     this.searchForm.controls['searchOption'].valueChanges.subscribe(this.searchService.searchOption$);
     this.searchForm.controls['searchDesc'].valueChanges.subscribe(this.searchService.searchDesc$);
+
+
   }
 
 

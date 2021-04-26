@@ -43,23 +43,22 @@ export class TodosComponent implements OnInit {
       .pipe(
         debounceTime(1100),
         tap(x => console.log(x)),
-        map(([tasks, searchId, searchName, searchDesc, searchOption]) => {
+        map(([tasks, searchId, searchName, searchDesc, searchOption])=> {
 
-          if (this.filterOnId(tasks,searchId)){
-            console.log(tasks + 'on id')
-            return tasks.filter((x)=>x.Id===searchId)
+          tasks = this.taskService.getTasks().getValue()
+          if (searchId!=null)
+            tasks=tasks.filter(x=>x.Id==searchId)
+          if (searchName!=null ){
+            tasks=tasks.filter(x=>x.Name.includes(searchName))
           }
-          if (this.filterOnName(tasks,searchName)){
-            console.log(tasks + 'on name')
-            return tasks.filter(x=>x.Name.includes(searchName))
+          if (searchDesc!=null ){
+            tasks=tasks.filter(x=>x.Desc.includes(searchDesc))
           }
-          if (this.filterOnDesc(tasks,searchDesc)){
-            return tasks.filter(x=>x.Desc.includes(searchDesc))
-          }
-          if (this.filterOnSelect(tasks,searchOption)){
-              return tasks.filter(x=>x.Important===true)
+          if (searchOption=="Important" ){
+            tasks=tasks.filter(x=>x.Important==true)
            }
-          return tasks;
+          return tasks
+
         }),
         tap(x=>console.log(x))
       );
