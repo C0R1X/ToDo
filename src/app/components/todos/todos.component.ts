@@ -4,6 +4,7 @@ import {TaskService} from '../../services/task.service';
 import {SearchService} from '../../services/search.service';
 import {Task} from '../../models/taskItem';
 import {debounceTime, map, tap} from 'rxjs/operators';
+import {reflectTypeEntityToDeclaration} from '@angular/compiler-cli/src/ngtsc/reflection';
 
 
 @Component({
@@ -43,20 +44,24 @@ export class TodosComponent implements OnInit {
         debounceTime(1100),
         tap(x => console.log(x)),
         map(([tasks, searchId, searchName, searchDesc, searchOption]) => {
+
           if (this.filterOnId(tasks,searchId)){
-            tasks.filter(x=>x.Id===searchId)
+            console.log(tasks + 'on id')
+            return tasks.filter((x)=>x.Id===searchId)
           }
           if (this.filterOnName(tasks,searchName)){
-            tasks.filter(x=>x.Name===searchName)
+            console.log(tasks + 'on name')
+            return tasks.filter(x=>x.Name.includes(searchName))
           }
           if (this.filterOnDesc(tasks,searchDesc)){
-            tasks.filter(x=>x.Desc===searchDesc)
+            return tasks.filter(x=>x.Desc.includes(searchDesc))
           }
-          // if (this.filterOnSelect(tasks,searchOption)){
-          //   tasks.filter(x=>x.Important===true)
-          // }
+          if (this.filterOnSelect(tasks,searchOption)){
+              return tasks.filter(x=>x.Important===true)
+           }
           return tasks;
-        })
+        }),
+        tap(x=>console.log(x))
       );
   }
 
@@ -66,37 +71,34 @@ export class TodosComponent implements OnInit {
     if (searchId !== null) {
       return true;
     }
+    return  false
   }
 
   filterOnName(tasks: Task[], searchName) {
     if (searchName !== "") {
       return true;
     }
+    return  false
   }
 
   filterOnDesc(tasks: Task[], searchDesc) {
     if (searchDesc !== "") {
       return true;
     }
+    return  false
+
   }
 
-  // filterOnSelect(tasks: Task[], searchOption: string) {
-  //   switch (searchOption) {
-  //     case 'All': {
-  //       return tasks;
-  //     }
-  //     case 'Not Important': {
-  //       return tasks.Important !== true;
-  //     }
-  //     case 'Important': {
-  //       return tasks.Important !== true;
-  //     }
-  //
-  //     default: {
-  //       return tasks;
-  //     }
-  //   }
-  // }
+  filterOnSelect(tasks: Task[], searchOption: string) {
+    switch (searchOption) {
+      case 'Important': {
+        return true
+      }
+      default: {
+        return false;
+      }
+    }
+  }
 
 
 }
