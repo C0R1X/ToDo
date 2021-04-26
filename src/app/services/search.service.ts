@@ -11,7 +11,6 @@ export class SearchService {
   private Desc$ = new BehaviorSubject<string>(null);
   private Opt$ = new BehaviorSubject<string>(null);
 
-
   get searchId$() {
     return this.Id$;
   }

@@ -43,51 +43,60 @@ export class TodosComponent implements OnInit {
         debounceTime(1100),
         tap(x => console.log(x)),
         map(([tasks, searchId, searchName, searchDesc, searchOption]) => {
-          return tasks.filter(x => {
-            return x;
-          });
-
+          if (this.filterOnId(tasks,searchId)){
+            tasks.filter(x=>x.Id===searchId)
+          }
+          if (this.filterOnName(tasks,searchName)){
+            tasks.filter(x=>x.Name===searchName)
+          }
+          if (this.filterOnDesc(tasks,searchDesc)){
+            tasks.filter(x=>x.Desc===searchDesc)
+          }
+          // if (this.filterOnSelect(tasks,searchOption)){
+          //   tasks.filter(x=>x.Important===true)
+          // }
+          return tasks;
         })
       );
   }
 
   // Filtering tasks
 
-  filterOnId(task: Task, searchId: number) {
-    if (searchId !== null || searchId !== undefined || task.Id !== searchId) {
-      return task;
+  filterOnId(tasks: Task[], searchId: number) {
+    if (searchId !== null) {
+      return true;
     }
   }
 
-  filterOnName(task: Task, searchName) {
-    if (searchName !== '' || searchName !== undefined || task.Name !== searchName) {
-      return task;
+  filterOnName(tasks: Task[], searchName) {
+    if (searchName !== "") {
+      return true;
     }
   }
 
-  filterOnDesc(task: Task, searchDesc) {
-    if (searchDesc !== '' || searchDesc !== undefined || task.Desc !== searchDesc) {
-      return task;
+  filterOnDesc(tasks: Task[], searchDesc) {
+    if (searchDesc !== "") {
+      return true;
     }
   }
 
-  filterOnSelect(task: Task, searchOption: string) {
-    switch (searchOption) {
-      case 'All': {
-        return task;
-      }
-      case 'Not Important': {
-        return task.Important !== true;
-      }
-      case 'Important': {
-        return task.Important !== true;
-      }
-
-      default: {
-        return task;
-      }
-    }
-  }
+  // filterOnSelect(tasks: Task[], searchOption: string) {
+  //   switch (searchOption) {
+  //     case 'All': {
+  //       return tasks;
+  //     }
+  //     case 'Not Important': {
+  //       return tasks.Important !== true;
+  //     }
+  //     case 'Important': {
+  //       return tasks.Important !== true;
+  //     }
+  //
+  //     default: {
+  //       return tasks;
+  //     }
+  //   }
+  // }
 
 
 }

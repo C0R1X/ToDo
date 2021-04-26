@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SearchService} from '../../services/search.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {combineLatest} from 'rxjs';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //this.searchForm.valueChanges.subscribe()
     this.searchForm.controls['searchId'].valueChanges.subscribe(this.searchService.searchId$);
     this.searchForm.controls['searchName'].valueChanges.subscribe(this.searchService.searchName$);
     this.searchForm.controls['searchOption'].valueChanges.subscribe(this.searchService.searchOption$);
