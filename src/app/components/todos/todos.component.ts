@@ -4,7 +4,7 @@ import {TaskService} from '../../services/task.service';
 import {SearchService} from '../../services/search.service';
 import {Task} from '../../models/taskItem';
 import {debounceTime, map, tap} from 'rxjs/operators';
-import {reflectTypeEntityToDeclaration} from '@angular/compiler-cli/src/ngtsc/reflection';
+import {TodoActions} from '../../redux/todo.actions';
 
 
 @Component({
@@ -24,7 +24,8 @@ export class TodosComponent implements OnInit {
 
   constructor(
     private searchService: SearchService,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private todoActions: TodoActions
   ) {
     // this.filteredTasks$ = combineLatest([this.tasksList$, this.srchList$])
     //   .pipe(
@@ -39,6 +40,9 @@ export class TodosComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.todoActions.LoadTasks();
+
     this.filteredTasks$ = combineLatest([this.tasksList$, this.srchId$, this.srchName$, this.srchDesc$, this.srchOpt$])
       .pipe(
         debounceTime(1100),

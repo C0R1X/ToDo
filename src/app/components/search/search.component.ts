@@ -37,8 +37,6 @@ export class SearchComponent implements OnInit {
     this.searchForm.controls['searchName'].valueChanges.subscribe(this.searchService.searchName$);
     this.searchForm.controls['searchOption'].valueChanges.subscribe(this.searchService.searchOption$);
     this.searchForm.controls['searchDesc'].valueChanges.subscribe(this.searchService.searchDesc$);
-
-
   }
 
 

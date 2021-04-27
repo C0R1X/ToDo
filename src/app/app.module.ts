@@ -12,6 +12,12 @@ import {TodosDetailedComponent} from './components/todos-detailed/todos-detailed
 import {SearchComponent} from './components/search/search.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { StateEffects } from './state.effects';
 
 
 @NgModule({
@@ -30,7 +36,10 @@ import {MatInputModule} from '@angular/material/input';
     MatSelectModule,
     MatInputModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([StateEffects])
   ],
   bootstrap: [AppComponent]
 })
