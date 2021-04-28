@@ -16,8 +16,8 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { EffectsModule } from '@ngrx/effects';
-import { StateEffects } from './state.effects';
+import {TaskEffects} from './redux/todo.effect';
+import {EffectsModule} from '@ngrx/effects';
 
 
 @NgModule({
@@ -39,7 +39,7 @@ import { StateEffects } from './state.effects';
     FormsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([StateEffects])
+    EffectsModule.forRoot([TaskEffects])
   ],
   bootstrap: [AppComponent]
 })

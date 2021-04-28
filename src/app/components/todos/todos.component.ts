@@ -4,7 +4,12 @@ import {TaskService} from '../../services/task.service';
 import {SearchService} from '../../services/search.service';
 import {Task} from '../../models/taskItem';
 import {debounceTime, map, tap} from 'rxjs/operators';
-import {TodoActions} from '../../redux/todo.actions';
+import {TaskActions} from '../../redux/todo.actions';
+import {selectTaskList} from '../../redux/todo.select';
+import {GetTodos} from '../../redux/todo.actions';
+import {select, Store} from '@ngrx/store';
+import {IAppState} from '../../redux/app.state';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -23,9 +28,11 @@ export class TodosComponent implements OnInit {
   filteredTasks$: Observable<Task[]>;
 
   constructor(
+    private _store: Store<IAppState>,
+    private _router: Router,
     private searchService: SearchService,
     private taskService: TaskService,
-    private todoActions: TodoActions
+    // private taskActions: TaskActions
   ) {
     // this.filteredTasks$ = combineLatest([this.tasksList$, this.srchList$])
     //   .pipe(
@@ -41,7 +48,7 @@ export class TodosComponent implements OnInit {
 
   ngOnInit() {
 
-    this.todoActions.LoadTasks();
+    //this.todoActions.LoadTasks();
 
     this.filteredTasks$ = combineLatest([this.tasksList$, this.srchId$, this.srchName$, this.srchDesc$, this.srchOpt$])
       .pipe(
@@ -64,8 +71,15 @@ export class TodosComponent implements OnInit {
           return tasks
 
         }),
+      //select(selectTaskList))
         tap(x=>console.log(x))
       );
+
+
+  }
+
+  navigateToTask(id: number){
+    this._router.navigate(['user',id])
   }
 
   // Filtering tasks

@@ -1,25 +1,28 @@
-import { GenericAction } from '';
-import { Task } from '../models/taskItem';
-import { TodoActionsTypes } from './todo.actions';
-import { TodoListState } from './todo.model';
+import {ETodoActions, TaskActions} from './todo.actions';
+import {initialTodoState, ITodoListState} from './todo.state';
+import {ajax} from 'rxjs/ajax';
 
-export class TodoListInitState implements TodoListState {
-  todos: Task[];
-  errors?: Error;
-  isLoading: boolean;
-  constructor() {
-    this.todos = [];
-    this.isLoading = false;
+
+export const taskReducer = (
+    state = initialTodoState,
+      action:TaskActions
+):ITodoListState => {
+  switch (action.type){
+    case ETodoActions.GetTodosSucces:{
+      return {
+        ...state,
+        todos:action.payload
+      };
+    }
+    case ETodoActions.GetTodoSucess:{
+      return {
+        ...state,
+        selectedTask:action.payload
+      }
+    }
+    default:
+      return state;
   }
+};
 
-  const addTask = (
-    lastState:TodoListState,
-    action: GenericAction<TodoActionsTypes,void>
-  ):TodoListState=>{
-    return {
-      ...lastState,
-      isLoading:true
-    };
-  };
 
-}
