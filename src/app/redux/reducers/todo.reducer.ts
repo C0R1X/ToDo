@@ -1,6 +1,5 @@
-import {ETodoActions, TaskActions} from './todo.actions';
-import {initialTodoState, ITodoListState} from './todo.state';
-import {ajax} from 'rxjs/ajax';
+import {ETodoActions, TaskActions} from '../actions/todo.actions';
+import {initialTodoState, ITodoListState} from '../states/todo.state';
 
 
 export const taskReducer = (
@@ -15,6 +14,18 @@ export const taskReducer = (
       };
     }
     case ETodoActions.GetTodoSucess:{
+      return {
+        ...state,
+        selectedTask:action.payload
+      }
+    }
+    case ETodoActions.AddTodo:{
+      return {
+        ...state,
+        todos:[...state.todos,action.payload]
+      }
+    }
+    case ETodoActions.MakeTodoImportant:{
       return {
         ...state,
         selectedTask:action.payload

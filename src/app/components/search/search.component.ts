@@ -3,6 +3,7 @@ import {SearchService} from '../../services/search.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AsyncSubject, combineLatest, Observable, Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
+import {AddTodo} from '../../redux/actions/todo.actions';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class SearchComponent implements OnInit {
         searchDesc: [, Validators.required]
       }
     );
-    this.searchForm.valueChanges.subscribe(x => this.store.dispatch(new AddFormAction(x)));
+    this.searchForm.valueChanges.subscribe(x => this.store.dispatch(new AddTodo(x)));
   }
 
   ngOnInit(): void {

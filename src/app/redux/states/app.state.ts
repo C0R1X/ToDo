@@ -1,6 +1,6 @@
 import {RouterReducerState} from '@ngrx/router-store';
 
-import {initialTodoState, ITodoListState} from './todo.state';
+import {initialTodoState, ITodoListState} from '../states/todo.state';
 
 export interface IAppState {
   router?: RouterReducerState;

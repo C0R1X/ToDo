@@ -1,4 +1,4 @@
-import {Task} from '../models/taskItem';
+import {Task} from '../../models/taskItem';
 import {Action} from '@ngrx/store';
 
 export enum ETodoActions {

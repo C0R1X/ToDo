@@ -13,10 +13,10 @@ import {SearchComponent} from './components/search/search.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
+import {reducers,metaReducers} from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import {TaskEffects} from './redux/todo.effect';
+import {TaskEffects} from './redux/effects/todo.effect';
 import {EffectsModule} from '@ngrx/effects';
 
 
@@ -37,7 +37,7 @@ import {EffectsModule} from '@ngrx/effects';
     MatInputModule,
     ReactiveFormsModule,
     FormsModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(reducers, {metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([TaskEffects])
   ],

@@ -1,4 +1,4 @@
-import { Task } from '../models/taskItem';
+import { Task } from '../../models/taskItem';
 
 export interface ITodoListState {
   todos: Task[];

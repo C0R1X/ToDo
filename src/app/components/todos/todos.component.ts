@@ -5,9 +5,9 @@ import {SearchService} from '../../services/search.service';
 import {Task} from '../../models/taskItem';
 import {debounceTime, map, tap} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
-import {IAppState} from '../../redux/app.state';
+import {IAppState} from '../../redux/states/app.state';
 import {Router} from '@angular/router';
-import {getTasks} from '../../redux/todo.select';
+import {getTasks} from '../../redux/selectors/todo.select';
 
 
 @Component({
