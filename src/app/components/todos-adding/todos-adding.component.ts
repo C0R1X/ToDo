@@ -21,6 +21,8 @@ export class TodosAddingComponent {
       'taskDesc': ['', [Validators.required]],
       'taskTime': ['', [Validators.required]]
     });
+
+    this.myForm.valueChanges.subscribe()
   }
 
   onSubmit() {

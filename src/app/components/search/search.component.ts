@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {SearchService} from '../../services/search.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AsyncSubject, combineLatest, Observable} from 'rxjs';
+import {AsyncSubject, combineLatest, Observable, Subject} from 'rxjs';
+import {Store} from '@ngrx/store';
 
 
 @Component({
@@ -11,14 +12,12 @@ import {AsyncSubject, combineLatest, Observable} from 'rxjs';
 })
 export class SearchComponent implements OnInit {
 
+  public form$ = new Subject();
   searchForm: FormGroup;
   options = ['All', 'Important', 'Not Important'];
-  InpId$: number;
-  InpName$: string;
-  InpDesc$:string;
-  InpOpt$: string;
 
   constructor(
+    private store: Store<{}>,
     private searchService: SearchService,
     private FormBuilder: FormBuilder) {
 
@@ -29,6 +28,7 @@ export class SearchComponent implements OnInit {
         searchDesc: [, Validators.required]
       }
     );
+    this.searchForm.valueChanges.subscribe(x => this.store.dispatch(new AddFormAction(x)));
   }
 
   ngOnInit(): void {
