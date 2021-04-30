@@ -14,18 +14,18 @@ import {TASKS} from '../../mock-tasks';
 
 @Injectable()
 export class TaskEffects {
-
-  @Effect()
-  getTask$ = this.actions$.pipe(
-    ofType<GetTodo>(ETodoActions.GetTodo),
-    map(action => action.payload),
-    withLatestFrom(this.store.pipe(select(getTasks))),
-    tap(x => console.log(x)),
-    map(([id, tasks]) => {
-      const selectedTask = tasks.filter(user => user.Id === +id)[0];
-      return new GetTodoSucces(selectedTask);
-    })
-  );
+  //
+  // @Effect()
+  // getTask$ = this.actions$.pipe(
+  //   ofType<GetTodo>(ETodoActions.GetTodo),
+  //   map(action => action.payload),
+  //   withLatestFrom(this.store.pipe(select(getTasks))),
+  //   tap(x => console.log(x)),
+  //   map(([id, tasks]) => {
+  //     const selectedTask = tasks.filter(user => user.Id === +id)[0];
+  //     return new GetTodoSucces(selectedTask);
+  //   })
+  // );
 
   @Effect()
   getTasks$ = this.actions$.pipe(

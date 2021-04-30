@@ -4,11 +4,11 @@ import {TaskService} from '../../services/task.service';
 import {SearchService} from '../../services/search.service';
 import {Task} from '../../models/taskItem';
 import {debounceTime, map, tap} from 'rxjs/operators';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {IAppState} from '../../redux/states/app.state';
 import {Router} from '@angular/router';
 import {getTasks} from '../../redux/selectors/todo.select';
-import {DeleteTodo, MakeTodoImportant} from './../../redux/actions/todo.actions';
+import {DeleteTodo, MakeTodoImportant} from '../../redux/actions/todo.actions';
 
 @Component({
   selector: 'app-todos',
@@ -37,10 +37,8 @@ export class TodosComponent implements OnInit {
     this.filteredTasks$ = combineLatest([this.tasksList$, this.srchId$, this.srchName$, this.srchDesc$, this.srchOpt$])
       .pipe(
         debounceTime(1100),
-        tap(x => console.log(x)),
+        //tap(x => console.log(x)),
         map(([tasks, searchId, searchName, searchDesc, searchOption]) => {
-
-          tasks = this.taskService.getTasks().getValue();
           if (searchId != null) {
             tasks = tasks.filter(x => x.Id == searchId);
           }
@@ -55,8 +53,8 @@ export class TodosComponent implements OnInit {
           }
           return tasks;
 
-        }),
-        tap(x => console.log(x))
+        })
+        //tap(x => console.log(x))
       );
 
 
