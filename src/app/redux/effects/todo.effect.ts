@@ -1,24 +1,15 @@
-import {Component, Injectable} from '@angular/core';
-import {Effect, ofType, Actions} from '@ngrx/effects';
-import {Store, select} from '@ngrx/store';
+import {Injectable} from '@angular/core';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import {select, Store} from '@ngrx/store';
 import {of} from 'rxjs';
-import {switchMap, map, withLatestFrom, tap, mergeMap} from 'rxjs/operators';
+import {map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
 
 import {IAppState} from '../states/app.state';
-import {
-  GetTodosSuccess,
-  ETodoActions,
-  GetTodoSucces,
-  GetTodosOnStrSucess,
-  GetTodo,
-  GetTodos,
-  GetTodosOnStr, AddTodo
-} from '../actions/todo.actions';
+import {ETodoActions, GetTodo, GetTodos, GetTodoSucces} from '../actions/todo.actions';
 
 import {TaskService} from '../../services/task.service';
 import {getTasks} from '../selectors/todo.select';
 import {TASKS} from '../../mock-tasks';
-import {Task} from '../../models/taskItem';
 
 
 @Injectable()
@@ -41,20 +32,6 @@ export class TaskEffects {
     ofType<GetTodos>(ETodoActions.GetTodos),
     switchMap(() => of(TASKS))
   );
-
-  @Effect()
-  addBook$ = this.actions$.pipe(
-    ofType<AddTodo>(ETodoActions.AddTodo),
-    map(action=>action.payload),
-    map(newTask=>{
-      return new AddTodo(newTask)
-    })
-
-
-
-  )
-
-
 
 
   constructor(

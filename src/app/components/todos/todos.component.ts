@@ -8,7 +8,7 @@ import {Store} from '@ngrx/store';
 import {IAppState} from '../../redux/states/app.state';
 import {Router} from '@angular/router';
 import {getTasks} from '../../redux/selectors/todo.select';
-
+import {DeleteTodo, MakeTodoImportant} from './../../redux/actions/todo.actions';
 
 @Component({
   selector: 'app-todos',
@@ -62,8 +62,13 @@ export class TodosComponent implements OnInit {
 
   }
 
-  navigateToTask(id: number) {
-    this.router.navigate(['user', id]);
+
+  makeTaskImportant(task: Task) {
+    this.store.dispatch(new MakeTodoImportant(task));
+  }
+
+  removeTask(task: Task): void {
+    this.store.dispatch(new DeleteTodo(task));
   }
 
   // Filtering tasks

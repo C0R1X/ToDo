@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-
-import {TaskService} from '../../services/task.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Store} from '@ngrx/store';
+import {IAppState} from '../../redux/states/app.state';
+import {AddTodo} from '../../redux/actions/todo.actions';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class TodosAddingComponent {
 
   myForm: FormGroup;
 
-  constructor(private TaskService: TaskService, private FormBuilder: FormBuilder) {
+  constructor(private store: Store<IAppState>, private FormBuilder: FormBuilder) {
 
     this.myForm = FormBuilder.group
     ({
@@ -22,14 +23,10 @@ export class TodosAddingComponent {
       'taskTime': ['', [Validators.required]]
     });
 
-    this.myForm.valueChanges.subscribe()
+    this.myForm.valueChanges.subscribe();
   }
 
   onSubmit() {
-    this.TaskService.addTask(
-      this.myForm.controls.taskName.value,
-      this.myForm.controls.taskDesc.value,
-      this.myForm.controls.taskTime.value
-    );
+    this.store.dispatch(new AddTodo(this.myForm.value));
   }
 }
