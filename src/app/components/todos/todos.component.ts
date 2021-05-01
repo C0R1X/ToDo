@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {combineLatest, Observable} from 'rxjs';
-import {TaskService} from '../../services/task.service';
+import {combineLatest, Observable, of} from 'rxjs';
 import {SearchService} from '../../services/search.service';
 import {Task} from '../../models/taskItem';
 import {debounceTime, map, tap} from 'rxjs/operators';
@@ -8,7 +7,7 @@ import {select, Store} from '@ngrx/store';
 import {IAppState} from '../../redux/states/app.state';
 import {Router} from '@angular/router';
 import {getTasks} from '../../redux/selectors/todo.select';
-import {DeleteTodo, MakeTodoImportant} from '../../redux/actions/todo.actions';
+import {DeleteTodo, GetTodos, GetTodosSuccess, GetTodoSucces, MakeTodoImportant} from '../../redux/actions/todo.actions';
 
 @Component({
   selector: 'app-todos',
@@ -16,7 +15,6 @@ import {DeleteTodo, MakeTodoImportant} from '../../redux/actions/todo.actions';
   styleUrls: ['./todos.component.css']
 })
 export class TodosComponent implements OnInit {
-
   tasksList$ = this.store.select(getTasks);
   srchId$ = this.searchService.searchId$;
   srchName$ = this.searchService.searchName$;
@@ -29,15 +27,15 @@ export class TodosComponent implements OnInit {
     private store: Store<IAppState>,
     private router: Router,
     private searchService: SearchService,
-    private taskService: TaskService,
   ) {
+
   }
 
   ngOnInit() {
     this.filteredTasks$ = combineLatest([this.tasksList$, this.srchId$, this.srchName$, this.srchDesc$, this.srchOpt$])
       .pipe(
         debounceTime(1100),
-        //tap(x => console.log(x)),
+        tap(x => console.log(x)),
         map(([tasks, searchId, searchName, searchDesc, searchOption]) => {
           if (searchId != null) {
             tasks = tasks.filter(x => x.Id == searchId);

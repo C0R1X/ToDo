@@ -20,7 +20,6 @@ export class TaskEffects {
   //   ofType<GetTodo>(ETodoActions.GetTodo),
   //   map(action => action.payload),
   //   withLatestFrom(this.store.pipe(select(getTasks))),
-  //   tap(x => console.log(x)),
   //   map(([id, tasks]) => {
   //     const selectedTask = tasks.filter(user => user.Id === +id)[0];
   //     return new GetTodoSucces(selectedTask);

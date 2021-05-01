@@ -15,6 +15,9 @@ export enum ETodoActions {
 
 export class GetTodos implements Action {
   public readonly type = ETodoActions.GetTodos;
+
+  constructor(public payload: Task[]) {
+  }
 }
 
 export class GetTodosSuccess implements Action {

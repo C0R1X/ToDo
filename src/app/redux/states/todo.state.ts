@@ -1,4 +1,6 @@
 import { Task } from '../../models/taskItem';
+import {of} from 'rxjs';
+import {TASKS} from '../../mock-tasks';
 
 export interface ITodoListState {
   todos: Task[];
@@ -6,6 +8,6 @@ export interface ITodoListState {
 }
 
 export const initialTodoState = {
-  todos:null,
-  selectedTask:null
+  todos : [] as Task[],
+  selectedTask:{} as Task
 }
