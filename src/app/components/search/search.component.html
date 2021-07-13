@@ -1,17 +1,61 @@
-<div class="container">
-  <div class="row">
-    <div class="input-field col c6">
-      <input type="text" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;
-      Start searching for a task by id or name or description">
+<!--<div class="container">-->
+<!--  <div class="row">-->
+<!--    <div class="input-field col c6">-->
+<!--      <input type="text" [formControlName]="s" (keyup)="($event)" autocomplete="off">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<form [formGroup]="searchForm" novalidate>
+  <div class="form-group">
+    <br>
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="Id" class="form-control" type="text" formControlName="searchId">
+    </mat-form-field>
+    <div class="alert alert-danger"
+         *ngIf="searchForm.controls['searchId'].invalid && searchForm.controls['searchId'].touched">
+      Не указано имя задания
     </div>
   </div>
+  <div class="form-group">
+    <br>
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="Name" class="form-control" type="text" formControlName="searchName">
+    </mat-form-field>
+    <div class="alert alert-danger"
+         *ngIf="searchForm.controls['searchName'].invalid && searchForm.controls['searchName'].touched">
+      Не указано имя задания
+    </div>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Select an option</mat-label>
+      <mat-select formControlName="searchOption">
+        <mat-option *ngFor="let t of options" [value]="t">{{t}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Select an option</mat-label>
-    <mat-select [(ngModel)]="searchOption">
-      <mat-option value="id">id</mat-option>
-      <mat-option value="name">name</mat-option>
-      <mat-option value="desc">description</mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
+  <div class="form-group">
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <input matInput placeholder="Task description" class="form-control" type="text" formControlName="searchDesc">
+    </mat-form-field>
+
+    <!--    <div class="alert alert-danger"-->
+    <!--         *ngIf="searchForm.controls['searchDesc'].invalid && searchForm.controls['searchDesc'].touched">-->
+    <!--      Не указано подробное описание-->
+    <!--    </div>-->
+
+  </div>
+
+<!--  <br><br>-->
+
+<!--  <p>-->
+<!--    Form value: {{ searchForm.value | json }}-->
+<!--  </p>-->
+
+</form>
+

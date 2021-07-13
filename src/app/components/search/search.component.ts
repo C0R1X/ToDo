@@ -1,35 +1,44 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {TaskService} from '../../services/task.service';
-import {TodosComponent} from '../todos/todos.component';
+import {Component, OnInit} from '@angular/core';
+import {SearchService} from '../../services/search.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AsyncSubject, combineLatest, Observable, Subject} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {AddTodo} from '../../redux/actions/todo.actions';
+
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit, OnChanges {
+export class SearchComponent implements OnInit {
 
-  searchText: string;
-  searchOption: string;
+  public form$ = new Subject();
+  searchForm: FormGroup;
+  options = ['All', 'Important', 'Not Important'];
 
   constructor(
-    private taskService: TaskService) {
+    private store: Store<{}>,
+    private searchService: SearchService,
+    private FormBuilder: FormBuilder) {
+
+    this.searchForm = FormBuilder.group({
+        searchId: [, Validators.required],
+        searchOption: [, Validators.required],
+        searchName: [, Validators.required],
+        searchDesc: [, Validators.required]
+      }
+    );
+    this.searchForm.valueChanges.subscribe(x => this.store.dispatch(new AddTodo(x)));
   }
 
   ngOnInit(): void {
+    //this.searchForm.valueChanges.subscribe()
+    this.searchForm.controls['searchId'].valueChanges.subscribe(this.searchService.searchId$);
+    this.searchForm.controls['searchName'].valueChanges.subscribe(this.searchService.searchName$);
+    this.searchForm.controls['searchOption'].valueChanges.subscribe(this.searchService.searchOption$);
+    this.searchForm.controls['searchDesc'].valueChanges.subscribe(this.searchService.searchDesc$);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    // changes.prop contains the old and the new value...
-  }
 
-  onChange() {
-    if (!this.searchText) {
-      TodosComponent.arguments.tasks$.next(this.taskService.getTasks());
-    } else {
-      console.log(this.searchText);
-      TodosComponent.arguments.tasks$.next(this.taskService.getTasksByString(this.searchText));
-    }
-
-  }
 }

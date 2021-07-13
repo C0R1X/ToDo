@@ -9,9 +9,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TodosDetailedComponent} from './components/todos-detailed/todos-detailed.component';
-import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {SearchComponent} from './components/search/search.component';
 import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import { StoreModule } from '@ngrx/store';
+import {reducers,metaReducers} from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import {TaskEffects} from './redux/effects/todo.effect';
+import {EffectsModule} from '@ngrx/effects';
 
 
 @NgModule({
@@ -27,10 +33,13 @@ import {MatSelectModule} from '@angular/material/select';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTabsModule,
+    MatSelectModule,
+    MatInputModule,
     ReactiveFormsModule,
     FormsModule,
-    Ng2SearchPipeModule,
-    MatSelectModule
+    StoreModule.forRoot(reducers, {metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([TaskEffects])
   ],
   bootstrap: [AppComponent]
 })

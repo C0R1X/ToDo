@@ -19,10 +19,10 @@ export class TaskService {
     return this.tasks$;
   }
 
-  getTask(id: number | string): Observable<Task> {
+  getTask(id: string): Observable<Task> {
     return this.getTasks()
       .pipe(
-        map(tasks => tasks.find(task => task.id === +id))
+        map(tasks => tasks.find(task => task.Id === +id))
       );
   }
 
@@ -35,20 +35,20 @@ export class TaskService {
 
   deleteTask(task: Task) {
     let tasks = this.tasks$.getValue();
-    tasks = tasks.filter(x => x.id !== task.id);
+    tasks = tasks.filter(x => x.Id !== task.Id);
     this.tasks$.next(tasks);
   }
 
   makeTaskImportant(task: Task) {
     let t = task;
-    t.important = true;
+    t.Important= true;
     this.tasks$.getValue().splice(this.tasks$.getValue().indexOf(task), 1, t);
   }
 
   getTasksByString(str: string): Observable<Task[]> {
     return this.tasks$
       .pipe(
-        map(tasks => tasks.filter(task => task.name.toLowerCase().includes(str.toLowerCase())))
+        map(tasks => tasks.filter(task => task.Name.includes(str))),
       );
   }
 }
